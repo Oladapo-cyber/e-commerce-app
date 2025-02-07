@@ -1,21 +1,24 @@
 import styled, { ThemeProvider } from "styled-components";
 import { lightTheme } from "./utils/Themes";
-import { BrowserRouter } from "react-router-dom";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
 const Container = styled.div`
-  background-color: ${(props) => props.theme.bg};
+  background: ${(props) => props.theme.bg};
   color: ${(props) => props.theme.text_primary};
-  font-family: "Poppins", sans-serif;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  transition: all 0s, ease;
 `;
 
 const App = () => {
   return (
     <ThemeProvider theme={lightTheme}>
       <BrowserRouter>
-        <p>hdllo</p>
+        <Navbar />
       </BrowserRouter>
     </ThemeProvider>
   );
