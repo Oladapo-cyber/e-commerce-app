@@ -1,8 +1,87 @@
+/* eslint-disable react/prop-types */
 import { Login, PersonAdd } from "@mui/icons-material";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
+const SearchBar = ({ className }) => (
+  <input
+    type="text"
+    placeholder="Search for products..."
+    className={`${className} bg-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all`}
+  />
+);
+
+const NavLinks = ({ className }) => (
+  <ul className={`${className} text-lg`}>
+    <li>
+      <NavLink
+        to="/categories"
+        className={({ isActive }) =>
+          isActive ? "text-blue-500" : "text-black"
+        }
+      >
+        Categories
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/deals"
+        className={({ isActive }) =>
+          isActive ? "text-blue-500" : "text-black"
+        }
+      >
+        Deals
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/new"
+        className={({ isActive }) =>
+          isActive ? "text-gray-900 underline font-bold" : "text-black"
+        }
+      >
+        New
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/delivery"
+        className={({ isActive }) =>
+          isActive ? "text-blue-500" : "text-black"
+        }
+      >
+        Delivery
+      </NavLink>
+    </li>
+  </ul>
+);
+
+// Updated AuthButtons now accepts openAuth and setOpenAuth as props,
+// or you can pass a specific toggle function.
+const AuthButtons = ({ className, openAuth, setOpenAuth, onLoginClick }) => (
+  <div className={className}>
+    <button
+      // If onLoginClick prop is provided, use it.
+      // Otherwise, fallback to toggling openAuth directly.
+      onClick={onLoginClick ? onLoginClick : () => setOpenAuth(!openAuth)}
+      className="bg-gray-200 hover:bg-black hover:text-white ease-in-out duration-300 flex justify-center gap-1.5 items-center w-full text-black px-4 py-2 rounded-lg"
+    >
+      <Login />
+      Login
+    </button>
+    <button className="bg-gray-200 hover:bg-black hover:text-white ease-in-out duration-300 flex justify-center gap-1.5 items-center w-full text-black px-4 py-2 rounded-lg">
+      <PersonAdd />
+      Register
+    </button>
+  </div>
+);
+
+const Navbar = ({ openAuth, setOpenAuth }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Toggle function for the authentication modal.
+  const toggleAuth = () => setOpenAuth((prev) => !prev);
+
   return (
     <nav className="bg-navbar fixed w-full z-30 shadow-sm">
       <div className="flex items-center justify-between px-6 py-4">
@@ -14,51 +93,25 @@ const Navbar = () => {
           ☰
         </button>
         <div className="hidden md:flex items-center space-x-6">
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="w-64 px-3 py-2 bg-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+          <SearchBar className="w-64 px-3 py-2" />
+          <NavLinks className="flex items-center space-x-4" />
+          <AuthButtons
+            className="flex items-center space-x-4"
+            openAuth={openAuth}
+            setOpenAuth={setOpenAuth}
+            onLoginClick={toggleAuth}
           />
-          <ul className="flex items-center space-x-4 text-lg">
-            <li>Categories</li>
-            <li>Deals</li>
-            <li>New</li>
-            <li>Delivery</li>
-          </ul>
-          <div className="flex items-center space-x-4">
-            <button className="bg-gray-200 flex justify-center gap-1.5 items-center text-black px-4 py-2 rounded-lg">
-              <Login />
-              Login
-            </button>
-            <button className="bg-gray-200 flex justify-center gap-1.5 items-center text-black px-4 py-2 rounded-lg">
-              <PersonAdd />
-              Register
-            </button>
-          </div>
         </div>
       </div>
       <div className={`${isOpen ? "block" : "hidden"} md:hidden px-6 pb-4`}>
-        <input
-          type="text"
-          placeholder="Search for products..."
-          className="w-full mb-4 px-3 py-2 bg-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+        <SearchBar className="w-full mb-4 px-3 py-2" />
+        <NavLinks className="space-y-2" />
+        <AuthButtons
+          className="mt-4 space-y-2"
+          openAuth={openAuth}
+          setOpenAuth={setOpenAuth}
+          onLoginClick={toggleAuth}
         />
-        <ul className="space-y-2 text-lg">
-          <li>Categories</li>
-          <li>Deals</li>
-          <li>New</li>
-          <li>Delivery</li>
-        </ul>
-        <div className="mt-4 space-y-2">
-          <button className="  w-full bg-gray-200 flex justify-center gap-1.5 items-center text-black px-4 py-2 rounded-lg">
-            <Login />
-            Login
-          </button>
-          <button className="  w-full bg-gray-200 flex justify-center gap-1.5 items-center text-black px-4 py-2 rounded-lg">
-            <PersonAdd />
-            Register
-          </button>
-        </div>
       </div>
     </nav>
   );
