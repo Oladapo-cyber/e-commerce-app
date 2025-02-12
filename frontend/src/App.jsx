@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import NotFound from "./pages/NotFound";
-import Cart from "./pages/Cart";
-import Login from "./pages/Login";
-import NewArrivals from "./pages/NewArrivals";
 import Home from "./pages/Home";
-import Favorites from "./pages/Favorites";
-import ShopListing from "./pages/ShopListing";
 import Authentication from "./pages/Authentication";
 import { useState } from "react";
+// import NotFound from "./pages/NotFound";
+// import Cart from "./pages/Cart";
+// import Login from "./pages/Login";
+// import NewArrivals from "./pages/NewArrivals";
+// import Favorites from "./pages/Favorites";
+// import ShopListing from "./pages/ShopListing";
 
 const App = () => {
   const [openAuth, setOpenAuth] = useState(false);
