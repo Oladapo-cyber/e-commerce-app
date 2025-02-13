@@ -1,21 +1,13 @@
 import { TextField } from "@mui/material";
 
 /* eslint-disable react/prop-types */
-const SignUp = ({ login, setLogin }) => {
+const SignIn = ({ login, setLogin }) => {
   return (
     <div className="flex flex-col items-center w-full gap-2 justify-center h-full">
       <h1 className="text-3xl font-bold text-gray-800">Welcome to Dapstore</h1>
-      <span className="text-gray-600 flex items-start">
-        Enter your details to create a new account:{" "}
-      </span>
+      <p className="text-gray-600 flex items-start">Sign in to continue</p>
 
       <div className="flex flex-col items-center justify-center gap-4 w-[80%]">
-        <TextField
-          type="text"
-          label="Enter Full Name"
-          variant="outlined"
-          className="w-full max-w-sm mt-4"
-        />
         <TextField
           type="email"
           label="Email Address"
@@ -30,19 +22,19 @@ const SignUp = ({ login, setLogin }) => {
         />
       </div>
       <button className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-6 rounded mt-4">
-        Sign Up
+        Sign In
       </button>
       <p className="mt-2">
-        Already have an account?
+        Don&apos;t have an account?
         <button
           className="text-blue-500 hover:text-blue-700 font-bold ml-1"
-          onClick={() => setLogin(true)}
+          onClick={() => setLogin(false)}
         >
-          Sign in
+          Sign up
         </button>
       </p>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;

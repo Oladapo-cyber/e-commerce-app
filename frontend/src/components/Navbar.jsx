@@ -85,7 +85,7 @@ const Navbar = ({ openAuth, setOpenAuth }) => {
   return (
     <nav className="bg-navbar fixed w-full z-30 shadow-sm">
       <div className="flex items-center justify-between px-6 py-4">
-        <h1 className="text-3xl font-cursive">Dapstore</h1>
+        <h1 className="font-[cursive] text-4xl">Dapstore</h1>
         <button
           className="md:hidden bg-gray-200 p-2 rounded-lg"
           onClick={() => setIsOpen(!isOpen)}
