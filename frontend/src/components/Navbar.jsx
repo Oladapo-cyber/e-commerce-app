@@ -83,7 +83,7 @@ const Navbar = ({ openAuth, setOpenAuth }) => {
   const toggleAuth = () => setOpenAuth((prev) => !prev);
 
   return (
-    <nav className="bg-navbar fixed w-full z-30 shadow-sm">
+    <nav className="bg-white fixed w-full z-30 shadow-sm">
       <div className="flex items-center justify-between px-6 py-4">
         <h1 className="font-[cursive] text-4xl">Dapstore</h1>
         <button

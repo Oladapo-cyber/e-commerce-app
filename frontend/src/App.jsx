@@ -16,9 +16,10 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Navbar setOpenAuth={setOpenAuth} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* 
+        <div className="container mx-auto pt-18">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            {/* 
           <Route path="/newarrivals" element={<NewArrivals />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/authentication" element={<Authentication />} />
@@ -30,7 +31,8 @@ const App = () => {
           <Route path="/products/:id" element={<Product />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} /> */}
-        </Routes>
+          </Routes>
+        </div>
         {openAuth && (
           <Authentication openAuth={openAuth} setOpenAuth={setOpenAuth} />
         )}
