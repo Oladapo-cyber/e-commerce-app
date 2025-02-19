@@ -27,3 +27,8 @@
   --popup_text_secondary: #bdc3c7;
   --output_node: #5d6d7e;
 }
+
+.outline-text {
+  -webkit-text-stroke: 1px black;
+  color: transparent;
+}
