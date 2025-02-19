@@ -8,7 +8,7 @@ import stylishDenim from "../assets/stylish-denim.jpg";
 const Home = () => {
   return (
     <div className=" bg-gradient-to-br from-gray-100 to-gray-300">
-      <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-[1fr_2fr_1fr] gap-6 container h-auto md:h-[90vh] mx-auto p-4">
+      <section className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-[1fr_2fr_1fr] gap-6 container h-auto md:h-[90vh] mx-auto p-4">
         <div className="hidden md:block col-span-1 row-span-3 overflow-hidden rounded-lg shadow-lg transform hover:scale-105 transition duration-300 h-full">
           <img
             src={clothRack}
@@ -21,7 +21,7 @@ const Home = () => {
           <img
             src={openShop}
             alt="Hero"
-            className="w-full h-full object-cover"
+            className="w-full h-40 md:h-full object-cover"
           />
         </div>
 
@@ -42,7 +42,7 @@ const Home = () => {
           <img
             src={stylishDenim}
             alt="Hero"
-            className="w-full h-full object-cover"
+            className="w-full h-40 md:h-full object-cover"
           />
         </div>
 
@@ -53,7 +53,7 @@ const Home = () => {
             className="w-full h-full object-cover"
           />
         </div>
-      </div>
+      </section>
     </div>
   );
 };
