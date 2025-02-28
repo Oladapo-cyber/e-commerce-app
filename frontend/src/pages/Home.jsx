@@ -67,6 +67,7 @@ const Home = () => {
         <h2 className="flex justify-center items-center text-2xl font-bold">
           Trending
         </h2>
+        <CardWrapper />
       </section>
     </div>
   );
