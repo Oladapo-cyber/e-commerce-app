@@ -5,7 +5,9 @@ import desertDress from "../assets/desert-dress.jpg";
 import clothRack from "../assets/cloth-rack.jpg";
 import stylishDenim from "../assets/stylish-denim.jpg";
 import CardWrapper from "../components/CardWrapper";
-
+import { category } from "../utils/data";
+import ProductCategoryCard from "../components/cards/ProductCategoryCard";
+import ProductCard from "../components/cards/ProductCard";
 const Home = () => {
   return (
     <div className="bg-gradient-to-br from-gray-100 to-gray-300">
@@ -57,17 +59,26 @@ const Home = () => {
       </section>
 
       <section>
-        <h2 className="flex justify-center items-center text-2xl font-bold">
+        <h2 className="flex justify-center items-center text-2xl font-bold mb-4">
           Shop by Categories
         </h2>
-        <CardWrapper />
+        <CardWrapper>
+          {category.map((category) => (
+            <ProductCategoryCard key={category.name} category={category} />
+          ))}
+        </CardWrapper>
       </section>
 
       <section>
-        <h2 className="flex justify-center items-center text-2xl font-bold">
+        <h2 className="flex justify-center items-center text-2xl font-bold mb-4">
           Trending
         </h2>
-        <CardWrapper />
+        <CardWrapper>
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+        </CardWrapper>
       </section>
     </div>
   );
