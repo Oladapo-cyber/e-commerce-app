@@ -11,31 +11,34 @@ const SearchBar = ({ className }) => (
   />
 );
 
-const NavLinks = ({ className }) => (
+const NavLinks = ({ className, onLinkClick }) => (
   <ul className={`${className} text-lg`}>
     <li>
       <NavLink
-        to="/categories"
+        to="/"
+        onClick={onLinkClick}
         className={({ isActive }) =>
           isActive ? "text-blue-500" : "text-black"
         }
       >
-        Categories
+        Home
       </NavLink>
     </li>
     <li>
       <NavLink
-        to="/deals"
+        to="/shop"
+        onClick={onLinkClick}
         className={({ isActive }) =>
           isActive ? "text-blue-500" : "text-black"
         }
       >
-        Deals
+        Shop
       </NavLink>
     </li>
     <li>
       <NavLink
         to="/new"
+        onClick={onLinkClick}
         className={({ isActive }) =>
           isActive ? "text-gray-900 underline font-bold" : "text-black"
         }
@@ -43,9 +46,11 @@ const NavLinks = ({ className }) => (
         New
       </NavLink>
     </li>
+
     <li>
       <NavLink
         to="/delivery"
+        onClick={onLinkClick}
         className={({ isActive }) =>
           isActive ? "text-blue-500" : "text-black"
         }
@@ -82,10 +87,17 @@ const Navbar = ({ openAuth, setOpenAuth }) => {
   // Toggle function for the authentication modal.
   const toggleAuth = () => setOpenAuth((prev) => !prev);
 
+  // Function to close mobile menu on link click
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <nav className="bg-white fixed w-full z-30 shadow-sm">
       <div className="flex items-center justify-between px-6 py-4">
-        <h1 className="font-[cursive] text-4xl">Dapstore</h1>
+        <NavLink to={"/"}>
+          <h1 className="font-[cursive] text-4xl">Dapstore</h1>
+        </NavLink>
         <button
           className="md:hidden bg-gray-200 p-2 rounded-lg"
           onClick={() => setIsOpen(!isOpen)}
@@ -94,7 +106,10 @@ const Navbar = ({ openAuth, setOpenAuth }) => {
         </button>
         <div className="hidden md:flex items-center space-x-6">
           <SearchBar className="w-64 px-3 py-2" />
-          <NavLinks className="flex items-center space-x-4" />
+          <NavLinks
+            className="flex items-center space-x-4"
+            onLinkClick={handleLinkClick}
+          />
           <AuthButtons
             className="flex items-center space-x-4"
             openAuth={openAuth}
@@ -105,7 +120,7 @@ const Navbar = ({ openAuth, setOpenAuth }) => {
       </div>
       <div className={`${isOpen ? "block" : "hidden"} md:hidden px-6 pb-4`}>
         <SearchBar className="w-full mb-4 px-3 py-2" />
-        <NavLinks className="space-y-2" />
+        <NavLinks className="space-y-2" onLinkClick={handleLinkClick} />
         <AuthButtons
           className="mt-4 space-y-2"
           openAuth={openAuth}
