@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Login, PersonAdd } from "@mui/icons-material";
+import { Login, PersonAdd, Menu as HamburgerIcon } from "@mui/icons-material";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -99,10 +99,10 @@ const Navbar = ({ openAuth, setOpenAuth }) => {
           <h1 className="font-[cursive] text-4xl">Dapstore</h1>
         </NavLink>
         <button
-          className="md:hidden bg-gray-200 p-2 rounded-lg"
+          className="md:hidden bg-gray-100 p-2 rounded-lg"
           onClick={() => setIsOpen(!isOpen)}
         >
-          ☰
+          <HamburgerIcon sx={{ fontSize: "1.5rem" }} />
         </button>
         <div className="hidden md:flex items-center space-x-6">
           <SearchBar className="w-64 px-3 py-2" />

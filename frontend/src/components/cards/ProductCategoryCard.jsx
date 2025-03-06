@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 /* eslint-disable react/prop-types */
 const ProductCategoryCard = ({ category }) => {
   const navigate = useNavigate();
+
   const handleClick = () => {
     navigate(`/shop?category=${category.name}`);
   };
@@ -17,26 +18,26 @@ const ProductCategoryCard = ({ category }) => {
         alt={category.name}
         className="w-full h-40 object-cover rounded-md"
       />
-      <div className="flex justify-between mt-4">
-        <div>
+      <div className="mt-4">
+        <div className="flex justify-between items-center">
           <p className="text-lg font-semibold text-gray-800">{category.name}</p>
-          <p className="inline text-sm text-gray-600">
-            {category.description || "Organic cotton, fairtrade certified"}
+          <p className="text-lg font-bold">
+            ${category.price || "59"}
+            <span className="align-text-top text-xs">.00</span>
           </p>
-          <div className="flex items-center mt-2">
-            <span className="text-green-600">{category.rating || "★★★★☆"}</span>
-            <span className="ml-2 text-gray-600">
-              ({category.ratingCount || "4"})
-            </span>
-          </div>
-          <button className="border-black border-2 shadow-sm px-3 py-1 mt-3 rounded-2xl">
-            Add to Cart
-          </button>
         </div>
-        <p className="text-lg font-bold">
-          ${category.price || "59"}
-          <span className="align-text-top text-xs">.00</span>
+        <p className="inline text-sm text-gray-600">
+          {category.description || "Organic cotton, fairtrade certified"}
         </p>
+        <div className="flex items-center mt-2">
+          <span className="text-green-600">{category.rating || "★★★★☆"}</span>
+          <span className="ml-2 text-gray-600">
+            ({category.ratingCount || "4"})
+          </span>
+        </div>
+        <button className="border-black border-2 shadow-sm px-3 py-1 mt-3 rounded-2xl">
+          Add to Cart
+        </button>
       </div>
     </div>
   );

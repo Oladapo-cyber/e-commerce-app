@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Authentication from "./pages/Authentication";
 import { useState } from "react";
+import ShopListing from "./pages/ShopListing";
 // import NotFound from "./pages/NotFound";
 // import Cart from "./pages/Cart";
 // import Login from "./pages/Login";
@@ -19,13 +20,14 @@ const App = () => {
         <div className="container mx-auto pt-18">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<ShopListing />} />
             {/* 
           <Route path="/newarrivals" element={<NewArrivals />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/authentication" element={<Authentication />} />
           <Route path="/login" element={<Login />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/shoplisting" element={<ShopListing />} />
+          
           <Route path="*" element={<NotFound />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/products/:id" element={<Product />} />
