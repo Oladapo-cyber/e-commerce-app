@@ -2,7 +2,7 @@
 import { Slider } from "@mui/material";
 import ProductCard from "../components/cards/ProductCard";
 import CardWrapper from "../components/CardWrapper";
-import { category, filter } from "../utils/data.js";
+import { filter } from "../utils/data.js";
 import { useState } from "react";
 
 const Filters = ({ children }) => {
@@ -40,16 +40,11 @@ const SelectableItem = ({ children, selected, onClick }) => {
 
 const ShopListing = () => {
   const [priceRange, setPriceRange] = useState([0, 1000]);
-  const [selectedSizes, setSelectedSizes] = useState(["S", "M", "L"]);
-  const [selectedCategories, setSelectedCategories] = useState([
-    "Men",
-    "Women",
-    "Kids",
-    "Bags",
-  ]);
+  const [selectedSizes, setSelectedSizes] = useState([""]);
+  const [selectedCategories, setSelectedCategories] = useState([""]);
 
   return (
-    <div className="container flex flex-col sm:flex-row items-start sm:space-x-4 px-5 py-3 mx-auto p-4">
+    <div className="flex flex-col sm:flex-row items-start sm:space-x-4 p-5 mx-auto">
       <Filters>
         <Menu>
           {filter.map((filters) => (
@@ -110,8 +105,11 @@ const ShopListing = () => {
           ))}
         </Menu>
       </Filters>
-      <CardWrapper>
-        {/* Add ProductCategoryCard components here */}
+      <CardWrapper className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4">
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
         <ProductCard />
       </CardWrapper>
     </div>

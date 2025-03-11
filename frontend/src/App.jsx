@@ -17,7 +17,7 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Navbar setOpenAuth={setOpenAuth} />
-        <div className="container mx-auto pt-18">
+        <div className="  mx- pt-18">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<ShopListing />} />
