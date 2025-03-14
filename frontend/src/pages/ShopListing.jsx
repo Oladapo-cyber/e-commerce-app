@@ -105,7 +105,7 @@ const ShopListing = () => {
           ))}
         </Menu>
       </Filters>
-      <CardWrapper className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4">
+      <CardWrapper>
         <ProductCard />
         <ProductCard />
         <ProductCard />

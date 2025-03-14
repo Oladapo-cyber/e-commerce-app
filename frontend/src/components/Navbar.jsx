@@ -37,25 +37,25 @@ const NavLinks = ({ className, onLinkClick }) => (
     </li>
     <li>
       <NavLink
-        to="/new"
+        to="/favorites"
         onClick={onLinkClick}
         className={({ isActive }) =>
           isActive ? "text-gray-900 underline font-bold" : "text-black"
         }
       >
-        New
+        Favorites
       </NavLink>
     </li>
 
     <li>
       <NavLink
-        to="/delivery"
+        to="/cart"
         onClick={onLinkClick}
         className={({ isActive }) =>
           isActive ? "text-blue-500" : "text-black"
         }
       >
-        Delivery
+        Cart
       </NavLink>
     </li>
   </ul>

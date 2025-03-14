@@ -53,3 +53,10 @@ export const filter = [
     items: ["S", "M", "L", "XL", "XXL"],
   },
 ];
+
+export const pricing = [
+  { name: "Gucci", price: "$1,400", flex: false, bold: true },
+  { name: "Versace", price: "$1000", flex: false, bold: true },
+  { name: "Puma", price: "$100", flex: false, bold: true },
+  { name: "Christian Louboutin", price: "$2000", flex: false, bold: true },
+];

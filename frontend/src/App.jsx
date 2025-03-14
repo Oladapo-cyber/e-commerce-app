@@ -5,10 +5,10 @@ import Authentication from "./pages/Authentication";
 import { useState } from "react";
 import ShopListing from "./pages/ShopListing";
 // import NotFound from "./pages/NotFound";
-// import Cart from "./pages/Cart";
+import Cart from "./pages/Cart";
 // import Login from "./pages/Login";
 // import NewArrivals from "./pages/NewArrivals";
-// import Favorites from "./pages/Favorites";
+import Favorites from "./pages/Favorites";
 // import ShopListing from "./pages/ShopListing";
 
 const App = () => {
@@ -21,12 +21,14 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<ShopListing />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/cart" element={<Cart />} />
             {/* 
           <Route path="/newarrivals" element={<NewArrivals />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/authentication" element={<Authentication />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/favorites" element={<Favorites />} />
+          
           
           <Route path="*" element={<NotFound />} />
           <Route path="/checkout" element={<Checkout />} />
