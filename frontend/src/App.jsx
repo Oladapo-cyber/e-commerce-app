@@ -9,6 +9,7 @@ import Cart from "./pages/Cart";
 // import Login from "./pages/Login";
 // import NewArrivals from "./pages/NewArrivals";
 import Favorites from "./pages/Favorites";
+import ProductDetails from "./pages/ProductDetails";
 // import ShopListing from "./pages/ShopListing";
 
 const App = () => {
@@ -17,15 +18,15 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Navbar setOpenAuth={setOpenAuth} />
-        <div className="  mx- pt-18">
+        <div className="pt-18">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<ShopListing />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/shop/:id" element={<ProductDetails />} />
             {/* 
           <Route path="/newarrivals" element={<NewArrivals />} />
-          <Route path="/cart" element={<Cart />} />
           <Route path="/authentication" element={<Authentication />} />
           <Route path="/login" element={<Login />} />
           
