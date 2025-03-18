@@ -2,6 +2,8 @@
 import { Rating } from "@mui/material";
 import ProductImage from "../assets/cloth-rack.jpg";
 import { useState } from "react";
+import Button from "../components/Button";
+import { FavoriteRounded } from "@mui/icons-material";
 
 const SelectOnClick = ({ children }) => {
   const [selected, setSelected] = useState(false);
@@ -28,7 +30,7 @@ const ProductDetails = () => {
       <div className="flex flex-1 max-w-[1400px] w-full p-3 flex-col justify-center gap-7 py-4 md:flex-row">
         <div className="flex flex-1 items-center justify-center">
           <img
-            className="h-[350px] rounded-xl md:h-[600px]"
+            className="h-[300px] rounded-xl md:h-[600px]"
             src={ProductImage}
             alt=""
           />
@@ -51,6 +53,14 @@ const ProductDetails = () => {
               <SelectOnClick>S</SelectOnClick>
               <SelectOnClick>L</SelectOnClick>
               <SelectOnClick>XL</SelectOnClick>
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-center items-center gap-4">
+                <Button full text={"Add to Cart"} />
+                <Button text={<FavoriteRounded style={{ fontSize: "" }} />} />
+              </div>
+
+              <Button full text={"Buy Now"} />
             </div>
           </div>
         </div>
