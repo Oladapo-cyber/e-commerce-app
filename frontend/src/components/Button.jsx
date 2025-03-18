@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import { CircularProgress } from "@mui/material";
+
 const Button = ({
   text,
   isLoading,
   isDisabled,
   rightIcon,
   leftIcon,
-  type,
   onClick,
   flex,
   small,
@@ -15,34 +15,32 @@ const Button = ({
 }) => {
   return (
     <button
-      onClick={() => !isDisabled && !isLoading && onClick()}
+      onClick={() => {
+        if (!isDisabled && !isLoading && onClick) onClick();
+      }}
+      disabled={isDisabled || isLoading}
       className={`
         ${isDisabled || isLoading ? "opacity-80 cursor-not-allowed" : ""}
         ${
-          type === "secondary"
-            ? "bg-secondary border-secondary"
-            : "bg-primary border-primary"
-        }
-        ${
           outlined
-            ? "bg-transparent text-primary border-2 border-primary shadow-none"
-            : "shadow-lg"
+            ? "bg-transparent text-blue-500 border border-blue-500"
+            : "bg-blue-500 text-white border border-blue-500"
         }
         ${flex ? "flex-1" : ""}
-        ${small ? "px-6 py-2" : "px-6 py-4"}
+        ${small ? "px-4 py-1.5 text-sm" : "px-5 py-2 text-base"}
         ${full ? "w-full" : ""}
-        rounded-lg text-black bg-amber-300 mt-3.5 text-md font-bold w-full flex items-center justify-center gap-2
-        transition-all duration-300 ease-in-out
+        rounded-lg mt-2 font-bold flex items-center justify-center gap-2
+        transition duration-200 ease-in-out hover:opacity-90
       `}
     >
       {isLoading && (
         <CircularProgress
-          style={{ width: "18px", height: "18px", color: "inherit" }}
+          style={{ width: "16px", height: "16px", color: "inherit" }}
         />
       )}
       {leftIcon}
       {text}
-      {isLoading && <> . . .</>}
+      {isLoading && <> ...</>}
       {rightIcon}
     </button>
   );
