@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
+import UserRouter from "./routes/User.js";
+
 dotenv.config();
 
 const app = express();
@@ -26,6 +28,7 @@ app.get("/", async (req, res) => {
     message: "Hello World",
   });
 });
+app.use("/api/user", UserRouter);
 
 const connectDB = () => {
   mongoose.set("strictQuery", true);
