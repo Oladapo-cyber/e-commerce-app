@@ -130,3 +130,55 @@ export const getProductById = async (req, res, next) => {
     return next(error);
   }
 };
+
+//Added the delete and patch controllers when I wanted to make changes to data I had sent to the database
+// Controller to delete a product by its ID
+export const deleteProduct = async (req, res, next) => {
+  try {
+    // Extract the product ID from URL parameters
+    const { id } = req.params;
+    // Attempt to delete the product by its ID from the database
+    const deletedProduct = await Products.findByIdAndDelete(id);
+
+    // If no product is found, pass a 404 error to the error handler
+    if (!deletedProduct) {
+      return next(createError(404, "Product not found"));
+    }
+
+    // If deletion is successful, respond with a 200 status and a success message
+    return res.status(200).json({
+      message: "Product deleted successfully",
+      product: deletedProduct,
+    });
+  } catch (error) {
+    // In case of any errors, pass them to the error handling middleware
+    next(error);
+  }
+};
+
+// Controller to update a product's details using HTTP PATCH
+export const updateProductPatch = async (req, res, next) => {
+  try {
+    // Extract the product ID from URL parameters
+    const { id } = req.params;
+    // Get the fields to be updated from the request body
+    const updatedData = req.body;
+
+    // Use findByIdAndUpdate to update only the provided fields
+    // { new: true } makes sure the updated document is returned
+    const updatedProduct = await Products.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+
+    // If no product is found, pass a 404 error to the error handler
+    if (!updatedProduct) {
+      return next(createError(404, "Product not found"));
+    }
+
+    // Respond with the updated product details and a 200 HTTP status
+    return res.status(200).json(updatedProduct);
+  } catch (error) {
+    // Pass any errors to the error handling middleware
+    next(error);
+  }
+};

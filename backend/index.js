@@ -18,17 +18,6 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json({ limit: "50mb" })); // Parse JSON requests with a size limit
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
 
-// Error-handling middleware
-app.use((err, req, res) => {
-  const status = err.status || 500; // Default to status 500 if not provided
-  const message = err.message || "Something went wrong!"; // Default error message
-  return res.status(status).json({
-    success: false,
-    status,
-    message,
-  });
-});
-
 // Define a basic route for testing the server
 app.get("/", async (req, res) => {
   res.status(200).json({
@@ -39,6 +28,17 @@ app.get("/", async (req, res) => {
 // API routes
 app.use("/api/user", UserRouter); // User-related routes
 app.use("/api/products", ProductRoutes); // Product-related routes
+
+// Error-handling middleware (moved after the routes)
+app.use((err, req, res, next) => {
+  const status = err.status || 500; // Default to status 500 if not provided
+  const message = err.message || "Something went wrong!"; // Default error message
+  return res.status(status).json({
+    success: false,
+    status,
+    message,
+  });
+});
 
 // Function to connect to MongoDB
 const connectDB = () => {
