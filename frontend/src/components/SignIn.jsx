@@ -8,10 +8,10 @@ import { openSnackbar } from "../redux/reducers/snackbarSlice";
 
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
-const SignIn = ({ login, setLogin }) => {
+const SignIn = ({ login, setOpenAuth, setLogin }) => {
   const dispatch = useDispatch();
   const [buttonLoading, setButtonLoading] = useState(false);
-  const [buttonDisabled, setbuttonDisabled] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -24,13 +24,9 @@ const SignIn = ({ login, setLogin }) => {
     return true;
   };
 
-  // const handleForgotPassword = () => {
-  //   alert("Forgot password clicked!");
-  // };
-
   const handleSignIn = async () => {
     setButtonLoading(true);
-    setbuttonDisabled(true);
+    setButtonDisabled(true);
     if (validateInputs()) {
       await UserSignIn({ email, password })
         .then((res) => {
@@ -41,11 +37,13 @@ const SignIn = ({ login, setLogin }) => {
               severity: "Success",
             })
           );
+          // Close the sign-in modal after successful login
+          setOpenAuth(false);
         })
         .catch((err) => {
           if (err.response) {
             setButtonLoading(false);
-            setbuttonDisabled(false);
+            setButtonDisabled(false);
             alert(err.response.data.message);
             dispatch(
               openSnackbar({
@@ -55,7 +53,7 @@ const SignIn = ({ login, setLogin }) => {
             );
           } else {
             setButtonLoading(false);
-            setbuttonDisabled(false);
+            setButtonDisabled(false);
             dispatch(
               openSnackbar({
                 message: err.message,
@@ -65,7 +63,7 @@ const SignIn = ({ login, setLogin }) => {
           }
         });
     }
-    setbuttonDisabled(false);
+    setButtonDisabled(false);
     setButtonLoading(false);
   };
 
@@ -109,10 +107,7 @@ const SignIn = ({ login, setLogin }) => {
           }}
         />
         <div className="w-full max-w-sm text-right">
-          <button
-            className="text-sm text-blue-500 hover:underline"
-            // onClick={handleForgotPassword}
-          >
+          <button className="text-sm text-blue-500 hover:underline">
             Forgot password?
           </button>
         </div>
@@ -126,10 +121,7 @@ const SignIn = ({ login, setLogin }) => {
       </button>
       <p className="mt-2">
         Don&apos;t have an account?
-        <button
-          className="text-blue-500 hover:text-blue-700 font-bold ml-1"
-          onClick={() => setLogin(false)}
-        >
+        <button className="text-blue-500 hover:text-blue-700 font-bold ml-1">
           Sign up
         </button>
       </p>
