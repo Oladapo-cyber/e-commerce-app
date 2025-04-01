@@ -1,7 +1,16 @@
 /* eslint-disable react/prop-types */
-import { Login, PersonAdd, Menu as HamburgerIcon } from "@mui/icons-material";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import {
+  SearchRounded,
+  ShoppingCartOutlined,
+  FavoriteBorder,
+  Menu as HamburgerIcon,
+} from "@mui/icons-material";
+import { Avatar } from "@mui/material";
+import { logout } from "../redux/reducers/userSlice";
+import Button from "./Button";
+import { useDispatch } from "react-redux";
 
 const SearchBar = ({ className }) => (
   <input
@@ -37,6 +46,39 @@ const NavLinks = ({ className, onLinkClick }) => (
     </li>
     <li>
       <NavLink
+        to="/new_arrivals"
+        onClick={onLinkClick}
+        className={({ isActive }) =>
+          isActive ? "text-blue-500" : "text-black"
+        }
+      >
+        New Arrivals
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/orders"
+        onClick={onLinkClick}
+        className={({ isActive }) =>
+          isActive ? "text-blue-500" : "text-black"
+        }
+      >
+        Orders
+      </NavLink>
+    </li>
+    <li>
+      {/* <NavLink
+        to="/contact"
+        onClick={onLinkClick}
+        className={({ isActive }) =>
+          isActive ? "text-blue-500" : "text-black"
+        }
+      >
+        Contact
+      </NavLink> */}
+    </li>
+    <li>
+      <NavLink
         to="/favorites"
         onClick={onLinkClick}
         className={({ isActive }) =>
@@ -46,7 +88,6 @@ const NavLinks = ({ className, onLinkClick }) => (
         Favorites
       </NavLink>
     </li>
-
     <li>
       <NavLink
         to="/cart"
@@ -61,72 +102,122 @@ const NavLinks = ({ className, onLinkClick }) => (
   </ul>
 );
 
-// Updated AuthButtons now accepts openAuth and setOpenAuth as props,
-// or you can pass a specific toggle function.
-const AuthButtons = ({ className, openAuth, setOpenAuth, onLoginClick }) => (
-  <div className={className}>
-    <button
-      // If onLoginClick prop is provided, use it.
-      // Otherwise, fallback to toggling openAuth directly.
-      onClick={onLoginClick ? onLoginClick : () => setOpenAuth(!openAuth)}
-      className="bg-gray-200 hover:bg-black hover:text-white ease-in-out duration-300 flex justify-center gap-1.5 items-center w-full text-black px-4 py-2 rounded-lg"
-    >
-      <Login />
-      Login
-    </button>
-    <button className="bg-gray-200 hover:bg-black hover:text-white ease-in-out duration-300 flex justify-center gap-1.5 items-center w-full text-black px-4 py-2 rounded-lg">
-      <PersonAdd />
-      Register
-    </button>
-  </div>
-);
-
-const Navbar = ({ openAuth, setOpenAuth }) => {
+const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  // Toggle function for the authentication modal.
-  const toggleAuth = () => setOpenAuth((prev) => !prev);
-
-  // Function to close mobile menu on link click
-  const handleLinkClick = () => {
-    setIsOpen(false);
-  };
+  const handleLinkClick = () => setIsOpen(false);
 
   return (
     <nav className="bg-white fixed w-full z-30 shadow-sm">
       <div className="flex items-center justify-between px-6 py-4">
-        <NavLink to={"/"}>
+        {/* Left - Logo */}
+        <NavLink to="/">
           <h1 className="font-[cursive] text-4xl">Dapstore</h1>
         </NavLink>
-        <button
-          className="md:hidden bg-gray-100 p-2 rounded-lg"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <HamburgerIcon sx={{ fontSize: "1.5rem" }} />
-        </button>
+
+        {/* Mobile Icons & Burger */}
+        <div className="flex gap-6">
+          {/* Mobile icons (left side of burger) */}
+          <div className="md:hidden flex items-center space-x-3">
+            <NavLink to="/search">
+              <SearchRounded className="text-[30px]" />
+            </NavLink>
+            {currentUser && (
+              <>
+                <NavLink to="/favorites">
+                  <FavoriteBorder className="text-[28px]" />
+                </NavLink>
+                <NavLink to="/cart">
+                  <ShoppingCartOutlined className="text-[28px]" />
+                </NavLink>
+                <Avatar src={currentUser?.img} className="w-8 h-8">
+                  {currentUser?.name?.[0]}
+                </Avatar>
+              </>
+            )}
+          </div>
+          {/* Hamburger button */}
+          <button
+            className="md:hidden rounded-lg"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <HamburgerIcon sx={{ fontSize: "1.5rem" }} />
+          </button>
+        </div>
+
+        {/* Desktop Nav Section */}
         <div className="hidden md:flex items-center space-x-6">
           <SearchBar className="w-64 px-3 py-2" />
           <NavLinks
             className="flex items-center space-x-4"
             onLinkClick={handleLinkClick}
           />
-          <AuthButtons
-            className="flex items-center space-x-4"
-            openAuth={openAuth}
-            setOpenAuth={setOpenAuth}
-            onLoginClick={toggleAuth}
-          />
+          {currentUser ? (
+            <div className="flex items-center space-x-4">
+              <NavLink to="/favorites">
+                <FavoriteBorder className="text-[28px]" />
+              </NavLink>
+              <NavLink to="/cart">
+                <ShoppingCartOutlined className="text-[28px]" />
+              </NavLink>
+              <Avatar src={currentUser?.img} className="w-8 h-8">
+                {currentUser?.name?.[0]}
+              </Avatar>
+              <button
+                onClick={() => dispatch(logout())}
+                className="text-sm font-semibold text-black hover:text-blue-600"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Button
+              text="SignIn"
+              small
+              onClick={() => setOpenAuth(!openAuth)}
+            />
+          )}
         </div>
       </div>
+
+      {/* Mobile Menu */}
       <div className={`${isOpen ? "block" : "hidden"} md:hidden px-6 pb-4`}>
         <SearchBar className="w-full mb-4 px-3 py-2" />
         <NavLinks className="space-y-2" onLinkClick={handleLinkClick} />
-        <AuthButtons
-          className="mt-4 space-y-2"
-          openAuth={openAuth}
-          setOpenAuth={setOpenAuth}
-          onLoginClick={toggleAuth}
-        />
+        {currentUser ? (
+          <div className="mt-4 space-y-2">
+            <NavLink to="/favorites" onClick={handleLinkClick}>
+              <FavoriteBorder className="text-[28px]" />
+            </NavLink>
+            <NavLink to="/cart" onClick={handleLinkClick}>
+              <ShoppingCartOutlined className="text-[28px]" />
+            </NavLink>
+            <Avatar src={currentUser?.img} className="w-8 h-8">
+              {currentUser?.name?.[0]}
+            </Avatar>
+            <button
+              onClick={() => {
+                dispatch(logout());
+                setIsOpen(false);
+              }}
+              className="text-sm font-semibold text-black hover:text-blue-600"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <div className="mt-4 space-y-2">
+            <Button
+              text="SignIn"
+              small
+              onClick={() => {
+                setOpenAuth(!openAuth);
+                setIsOpen(false);
+              }}
+            />
+          </div>
+        )}
       </div>
     </nav>
   );
