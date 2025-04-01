@@ -8,7 +8,6 @@ import {
   Menu as HamburgerIcon,
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { logout } from "../redux/reducers/userSlice";
 import Button from "./Button";
 

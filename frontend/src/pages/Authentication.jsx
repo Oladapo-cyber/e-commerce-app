@@ -26,16 +26,17 @@ const Left = () => (
 
 const Right = ({ setOpenAuth, login, setLogin }) => (
   <div className="w-full h-full sm:flex-1 bg-white">
-    <IconButton>
-      <Close
-        className="border-2 h-10 w-10 rounded-2xl top-3 left-[24.5rem] absolute md:top-5 sm:left-85 lg:top-7 lg:left-[45rem] -translate-x-1/2 transform"
-        onClick={() => setOpenAuth(false)}
-      />
+    <IconButton onClick={() => setOpenAuth(false)}>
+      <Close className="border-2 h-10 w-10 rounded-2xl top-3 left-[24.5rem] absolute md:top-5 sm:left-85 lg:top-7 lg:left-[45rem] -translate-x-1/2 transform" />
     </IconButton>
     {login ? (
-      <SignIn login={login} setLogin={setLogin} />
+      <>
+        <SignIn setOpenAuth={setOpenAuth} login={login} setLogin={setLogin} />
+      </>
     ) : (
-      <SignUp login={login} setLogin={setLogin} />
+      <>
+        <SignUp onClick={() => setLogin(false)} />
+      </>
     )}
   </div>
 );
