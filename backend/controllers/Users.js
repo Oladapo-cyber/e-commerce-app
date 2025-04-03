@@ -244,8 +244,8 @@ export const addToFavorites = async (req, res, next) => {
     const { productId } = req.body;
     // Get the authenticated user's info from the JWT
     const userJWT = req.user;
-    // Find the user in the database using the provided JWT ID (using findOne instead of findById)
-    const user = await User.findOne(userJWT.id);
+    // Find the user in the database using the provided JWT ID
+    const user = await User.findById(userJWT.id);
     // If the favorites list does not already include the product ID, add it
     if (!user.favorites.includes(productId)) {
       user.favorites.push(productId);
@@ -270,7 +270,7 @@ export const removeFromFavorites = async (req, res, next) => {
     // Get the authenticated user's info from the JWT
     const userJWT = req.user;
     // Find the user in the database using the provided JWT ID (using findOne instead of findById)
-    const user = await User.findOne(userJWT.id);
+    const user = await User.findById(userJWT.id);
     // Filter the favorites array to remove the product that matches the product ID
     user.favorites = user.favorites.filter((fav) => !fav.equals(productId));
     // Save the updated user record
