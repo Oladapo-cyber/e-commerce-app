@@ -10,7 +10,6 @@ import {
 import { Avatar } from "@mui/material";
 import { logout } from "../redux/reducers/userSlice";
 import Button from "./Button";
-import { useDispatch } from "react-redux";
 
 const SearchBar = ({ className }) => (
   <input
