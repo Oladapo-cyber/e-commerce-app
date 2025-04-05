@@ -8,10 +8,10 @@ import { openSnackbar } from "../redux/reducers/snackbarSlice";
 
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
-const SignIn = ({ login, setOpenAuth, setLogin }) => {
+const SignIn = ({ login, setLogin }) => {
   const dispatch = useDispatch();
   const [buttonLoading, setButtonLoading] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonDisabled, setbuttonDisabled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -24,9 +24,13 @@ const SignIn = ({ login, setOpenAuth, setLogin }) => {
     return true;
   };
 
+  // const handleForgotPassword = () => {
+  //   alert("Forgot password clicked!");
+  // };
+
   const handleSignIn = async () => {
     setButtonLoading(true);
-    setButtonDisabled(true);
+    setbuttonDisabled(true);
     if (validateInputs()) {
       await UserSignIn({ email, password })
         .then((res) => {
@@ -37,13 +41,11 @@ const SignIn = ({ login, setOpenAuth, setLogin }) => {
               severity: "Success",
             })
           );
-          // Close the sign-in modal after successful login
-          setOpenAuth(false);
         })
         .catch((err) => {
           if (err.response) {
             setButtonLoading(false);
-            setButtonDisabled(false);
+            setbuttonDisabled(false);
             alert(err.response.data.message);
             dispatch(
               openSnackbar({
@@ -53,7 +55,7 @@ const SignIn = ({ login, setOpenAuth, setLogin }) => {
             );
           } else {
             setButtonLoading(false);
-            setButtonDisabled(false);
+            setbuttonDisabled(false);
             dispatch(
               openSnackbar({
                 message: err.message,
@@ -63,7 +65,7 @@ const SignIn = ({ login, setOpenAuth, setLogin }) => {
           }
         });
     }
-    setButtonDisabled(false);
+    setbuttonDisabled(false);
     setButtonLoading(false);
   };
 
@@ -107,7 +109,10 @@ const SignIn = ({ login, setOpenAuth, setLogin }) => {
           }}
         />
         <div className="w-full max-w-sm text-right">
-          <button className="text-sm text-blue-500 hover:underline">
+          <button
+            className="text-sm text-blue-500 hover:underline"
+            // onClick={handleForgotPassword}
+          >
             Forgot password?
           </button>
         </div>
@@ -121,7 +126,10 @@ const SignIn = ({ login, setOpenAuth, setLogin }) => {
       </button>
       <p className="mt-2">
         Don&apos;t have an account?
-        <button className="text-blue-500 hover:text-blue-700 font-bold ml-1">
+        <button
+          className="text-blue-500 hover:text-blue-700 font-bold ml-1"
+          onClick={() => setLogin(false)}
+        >
           Sign up
         </button>
       </p>

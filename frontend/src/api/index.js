@@ -10,12 +10,12 @@ const API = axios.create({
 export const UserSignUp = async (data) => await API.post("/user/signup", data);
 
 // API call for user sign in. Sends a POST request with user credentials to the sign in endpoint.
-export const UserSignIn = async (data) => await API.post("/user/signin", data);
+export const UserSignIn = async (data) => await API.post("/api/signin", data);
 
 // API call to fetch all products with a filter query string.
 // Note: The endpoint is using a POST request, which may be used for filtering.
 export const getAllProducts = async (filter) =>
-  await API.get(`/products?${filter}`);
+  await API.post(`/products?${filter}`);
 
 // API call to get details of a specific product by its id.
 export const getProductDetails = async (id) => await API.get(`/products/${id}`);

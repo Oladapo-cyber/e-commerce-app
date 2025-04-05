@@ -16,7 +16,7 @@ import { verifyToken } from "../middlewares/verifyToken.js";
 const router = express.Router();
 
 router.post("/signup", verifyToken, UserRegister);
-router.post("/signin", UserLogin);
+router.post("/signin", verifyToken, UserLogin);
 
 //Cart routes
 router.get("/cart", verifyToken, getAllCartItems);
