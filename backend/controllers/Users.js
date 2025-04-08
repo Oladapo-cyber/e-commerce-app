@@ -18,7 +18,7 @@ export const UserRegister = async (req, res, next) => {
     const existingUser = await User.findOne({ email }).exec();
     if (existingUser) {
       // If the user exists, pass error to error handler
-      return next(createError(409, "User not found"));
+      return next(createError(409, "Email already in use"));
     }
 
     // Generate a salt and hash the user's password for security
@@ -59,7 +59,7 @@ export const UserLogin = async (req, res, next) => {
     const existingUser = await User.findOne({ email }).exec();
     if (!existingUser) {
       // If user does not exist, pass error to error handler
-      return next(createError(404, "Email already in use"));
+      return next(createError(404, "User not found"));
     }
 
     // Compare the provided password with the stored hashed password
@@ -127,7 +127,7 @@ export const removeFromCart = async (req, res, next) => {
     // Get the authenticated user's info from the JWT attached to the request
     const userJWT = req.user;
     // Find the user in the database using the ID from the JWT
-    const user = await user.findById(userJWT.id);
+    const user = await User.findById(userJWT.id);
     // If the user is not found, forward an error message
     if (!user) {
       return next(createError(404, "User not found."));
