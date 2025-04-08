@@ -1,70 +1,206 @@
 /* eslint-disable react/prop-types */
-import { Rating } from "@mui/material";
-import ProductImage from "../assets/cloth-rack.jpg";
-import { useState } from "react";
+import { CircularProgress, Rating } from "@mui/material";
+import { useEffect, useState } from "react";
+import { FavoriteBorder, FavoriteRounded } from "@mui/icons-material";
+import { useNavigate, useParams } from "react-router-dom";
+import { openSnackbar } from "../redux/reducers/snackbarSlice";
+import { useDispatch } from "react-redux";
+import {
+  addToCart,
+  addToFavorite,
+  deleteFromFavorite,
+  getFavorite,
+  getProductDetails,
+} from "../api";
 import Button from "../components/Button";
-import { FavoriteRounded } from "@mui/icons-material";
-
-const SelectOnClick = ({ children }) => {
-  const [selected, setSelected] = useState(false);
-
-  const handleClick = () => {
-    setSelected(!selected);
-  };
-
-  return (
-    <button
-      onClick={handleClick}
-      className={`flex items-center justify-center text-sm border-2 rounded-full h-9 w-9 ${
-        selected ? "bg-black text-white" : "bg-white text-black"
-      }`}
-    >
-      {children}
-    </button>
-  );
-};
 
 const ProductDetails = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [product, setProduct] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [favorite, setFavorite] = useState(false);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [cartLoading, setCartLoading] = useState(false);
+
+  const getProduct = async () => {
+    setLoading(true);
+    await getProductDetails(id).then((res) => {
+      setProduct(res.data);
+      setLoading(false);
+    });
+  };
+
+  const addFavorite = async () => {
+    setFavoriteLoading(true);
+    const token = localStorage.getItem("krist-app-token");
+
+    await addToFavorite(token, { productID: product?._id })
+      .then((res) => {
+        setFavorite(true);
+        setFavoriteLoading(false);
+      })
+      .catch((error) => {
+        setFavoriteLoading(false);
+        dispatch(
+          openSnackbar({
+            message: error.message,
+            severity: "error",
+          })
+        );
+      });
+  };
+
+  const removeFavorite = async () => {
+    setFavoriteLoading(true);
+    const token = localStorage.getItem("krist-app-token");
+    await deleteFromFavorite(token, { productID: product?._id })
+      .then((res) => {
+        setFavorite(false);
+        setFavoriteLoading(false);
+      })
+      .catch((error) => {
+        setFavoriteLoading(false);
+        dispatch(
+          openSnackbar({
+            message: error.message,
+            severity: "error",
+          })
+        );
+      });
+  };
+
+  const addCart = async () => {
+    setCartLoading(true);
+    const token = localStorage.getItem("krist-app-token");
+    await addToCart(token, { productId: product?._id, quantity: 1 })
+      .then((res) => {
+        setCartLoading(false);
+        navigate("/cart");
+      })
+      .catch((err) => {
+        setCartLoading(false);
+        dispatch(
+          openSnackbar({
+            message: err.message,
+            severity: "error",
+          })
+        );
+      });
+  };
+
+  const checkFavorite = async () => {
+    setFavoriteLoading(true);
+    const token = localStorage.getItem("krist-app-token");
+    await getFavorite(token, { productId: product?._id })
+      .then((res) => {
+        const isFavorite = res.data?.some(
+          (favorite) => favorite._id === product?._id
+        );
+        setFavorite(isFavorite);
+        setFavoriteLoading(false);
+      })
+      .catch((error) => {
+        setFavoriteLoading(false);
+        dispatch(
+          openSnackbar({
+            message: error.message,
+            severity: "error",
+          })
+        );
+      });
+  };
+
+  useEffect(() => {
+    getProduct();
+    checkFavorite();
+  }, []);
+
   return (
-    <div className="flex justify-center items-center w-full h-[90%]">
-      <div className="flex flex-1 max-w-[1400px] w-full p-3 flex-col justify-center gap-7 py-4 md:flex-row">
-        <div className="flex flex-1 items-center justify-center">
-          <img
-            className="h-[300px] rounded-xl md:h-[600px]"
-            src={ProductImage}
-            alt=""
-          />
-        </div>
-        <div className="flex gap-4 flex-col py-1 px-2.5 flex-1">
-          <div className="text-2xl font-semibold">Title</div>
-          <div className="text-lg font-normal">Name</div>
-          <Rating value={3.5} />
-          <div className="flex items-center gap-2 text-2xl font-medium">
-            $120
-            <span className="text-[16px] font-medium line-through">$200</span>
-            <span className="text-[16px] font-medium text-green-600">
-              40% off
-            </span>
+    <div className="w-full h-[99%] flex justify-center items-center overflow-y-scroll">
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <div className="flex flex-col md:flex-row w-full max-w-[1400px] p-3 gap-8 py-4">
+          <div className="flex-1 flex justify-center items-center">
+            <img
+              src={product?.img}
+              alt={product?.title}
+              className="h-[600px] rounded-xl md:h-[600px] object-cover"
+            />
           </div>
-          <div className="text-lg font-normal">Product Description</div>
-
-          <div className="flex flex-col gap-3 text-lg font-medium">
-            <div className="flex italic gap-3">
-              <SelectOnClick>S</SelectOnClick>
-              <SelectOnClick>L</SelectOnClick>
-              <SelectOnClick>XL</SelectOnClick>
+          <div className="flex flex-col flex-1 gap-4 p-2">
+            <div>
+              <h1 className="text-2xl font-semibold text-gray-900">
+                {product?.title}
+              </h1>
+              <h2 className="text-lg font-normal text-gray-700">
+                {product?.name}
+              </h2>
             </div>
-            <div className="flex flex-col gap-2">
-              <div className="flex justify-center items-center gap-4">
-                <Button full text={"Add to Cart"} />
-                <Button text={<FavoriteRounded style={{ fontSize: "" }} />} />
+            <Rating value={3.5} readOnly />
+            <div className="flex items-center gap-2 text-2xl font-medium">
+              ${product?.price?.org}
+              <span className="text-[16px] font-medium line-through text-gray-500">
+                ${product?.price?.mrp}
+              </span>
+              <span className="text-[16px] font-medium text-green-600">
+                ({product?.price?.off}% Off)
+              </span>
+            </div>
+            <p className="text-lg font-normal text-gray-800">{product?.desc}</p>
+            <div className="flex flex-col gap-3">
+              <div className="flex gap-3 italic">
+                {product?.sizes?.map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelected(size)}
+                    className={`flex items-center justify-center text-sm border-2 rounded-full h-9 w-9 ${
+                      selected === size
+                        ? "bg-black text-white border-black"
+                        : "bg-white text-black border-gray-300"
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
               </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-center items-center gap-4">
+                  <Button
+                    text="Add to Cart"
+                    full
+                    outlined={false}
+                    isLoading={cartLoading}
+                    onClick={addCart}
+                  />
+                  <Button
+                    leftIcon={
+                      favorite ? (
+                        <FavoriteRounded
+                          style={{ fontSize: "22px", color: "red" }}
+                        />
+                      ) : (
+                        <FavoriteBorder style={{ fontSize: "22px" }} />
+                      )
+                    }
+                    text=""
+                    outlined
+                    isLoading={favoriteLoading}
+                    onClick={() =>
+                      favorite ? removeFavorite() : addFavorite()
+                    }
+                  />
+                </div>
 
-              <Button full text={"Buy Now"} />
+                <Button text="Buy Now" full />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

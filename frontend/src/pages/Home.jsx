@@ -8,7 +8,23 @@ import CardWrapper from "../components/CardWrapper";
 import { category } from "../utils/data";
 import ProductCategoryCard from "../components/cards/ProductCategoryCard";
 import ProductCard from "../components/cards/ProductCard";
+import { useEffect, useState } from "react";
+import { getAllProducts } from "../api";
 const Home = () => {
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  const getProducts = async () => {
+    setLoading(true);
+    await getAllProducts().then((res) => {
+      setProducts(res.data);
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
   return (
     <div className="bg-gradient-to-br from-gray-100 to-gray-300">
       <section className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-[1fr_2fr_1fr] gap-6 container h-auto md:h-[90vh] mx-auto p-4">
@@ -74,10 +90,9 @@ const Home = () => {
           Trending
         </h2>
         <CardWrapper>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
         </CardWrapper>
       </section>
     </div>
