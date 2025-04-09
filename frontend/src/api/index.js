@@ -42,35 +42,34 @@ export const deleteFromCart = async (token, data) =>
   });
 
 // API call to fetch the user's favorite items.
-// Note: There is no space between "Bearer" and the token in the header; consider updating it.
 export const getFavorite = async (token) =>
   await API.get(`/user/favorite`, {
-    headers: { Authorization: `Bearer${token}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
 
 // API call to add an item to the user's favorites.
 // Sends a POST request with the item data and includes an authorization header.
 export const addToFavorite = async (token, data) =>
   await API.post(`/user/favorite/`, data, {
-    headers: { Authorization: `Bearer${token}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
 
 // API call to delete an item from the user's favorites.
 // Uses a PATCH request with the required data and an authorization header.
 export const deleteFromFavorite = async (token, data) =>
   await API.patch(`/user/favorite/`, data, {
-    headers: { Authorization: `Bearer${token}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
 
 // API call to place an order. Sends a POST request with order details and an authorization header.
 export const placeOrder = async (token, data) =>
   await API.post(`/user/order/`, data, {
-    headers: { Authorization: `Bearer${token}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
 
 // API call to get orders information.
 // Sends a GET request with an authorization header. The second argument 'data' might be unnecessary for GET.
-export const getOrders = async (token, data) =>
-  await API.get(`/user/order/`, data, {
-    headers: { Authorization: `Bearer${token}` },
+export const getOrders = async (token) =>
+  await API.get(`/user/order/`, {
+    headers: { Authorization: `Bearer ${token}` },
   });

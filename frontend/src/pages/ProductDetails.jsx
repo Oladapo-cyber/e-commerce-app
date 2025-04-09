@@ -118,6 +118,8 @@ const ProductDetails = () => {
     checkFavorite();
   }, []);
 
+  console.log("Product id:", id);
+
   return (
     <div className="w-full h-[99%] flex justify-center items-center overflow-y-scroll">
       {loading ? (
