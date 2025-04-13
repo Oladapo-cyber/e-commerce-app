@@ -118,8 +118,6 @@ const ProductDetails = () => {
     checkFavorite();
   }, []);
 
-  console.log("Product id:", id);
-
   return (
     <div className="w-full h-[99%] flex justify-center items-center overflow-y-scroll">
       {loading ? (
@@ -176,7 +174,7 @@ const ProductDetails = () => {
                     full
                     outlined={false}
                     isLoading={cartLoading}
-                    onClick={addCart}
+                    onClick={() => addCart}
                   />
                   <Button
                     leftIcon={

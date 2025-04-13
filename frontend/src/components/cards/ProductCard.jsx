@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import Rating from "@mui/material/Rating";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -13,7 +12,7 @@ import {
   getFavorite,
 } from "../../api";
 import { CircularProgress } from "@mui/material";
-import { FavoriteRounded } from "@mui/icons-material";
+import { AddShoppingCartOutlined, FavoriteRounded } from "@mui/icons-material";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -39,6 +38,7 @@ const ProductCard = ({ product }) => {
         );
       });
   };
+
   const removeFavorite = async () => {
     setFavoriteLoading(true);
     const token = localStorage.getItem("krist-app-token");
@@ -57,6 +57,7 @@ const ProductCard = ({ product }) => {
         );
       });
   };
+
   const addCart = async () => {
     const token = localStorage.getItem("krist-app-token");
     await addToCart(token, { productId: product?._id, quantity: 1 })
@@ -72,6 +73,7 @@ const ProductCard = ({ product }) => {
         );
       });
   };
+
   const checkFavourite = async () => {
     setFavoriteLoading(true);
     const token = localStorage.getItem("krist-app-token");
@@ -98,46 +100,53 @@ const ProductCard = ({ product }) => {
     checkFavourite();
   }, []);
 
-  console.log(product);
   return (
-    <div className="flex flex-col shadow-lg h-fit p-5 cursor-pointer bg-white rounded-lg">
+    <div className="flex flex-col shadow-lg p-4 md:p-5 cursor-pointer bg-white rounded-md md:rounded-lg">
       <img
         src={product?.img}
         alt={product?.name}
-        className="w-full h-40 object-cover rounded-md"
+        className="w-full h-32 sm:h-40 object-cover rounded-md"
       />
-      <div className="mt-4">
+      <div className="mt-3">
         <div onClick={() => navigate(`/shop/${product._id}`)}>
-          <div className="flex justify-between items-center">
-            <p className="text-lg font-semibold text-gray-800">
+          <div className="sm:flex sm:items-center sm:justify-between flex justify-between items-center">
+            <p className="text-base sm:text-lg font-semibold text-gray-800">
               {product?.title}
             </p>
-            <p className="text-lg font-bold">
+            <p className="text-base sm:text-lg font-bold">
               ${product?.price?.org}
               <span className="align-text-top text-xs">.00</span>
             </p>
           </div>
-          <p className="inline text-sm text-gray-600">{product?.desc}</p>
+          <p className="inline text-xs sm:text-sm text-gray-600">
+            {product?.desc}
+          </p>
         </div>
         <div className="flex items-center mt-2">
-          <Rating value={3.5} readOnly sx={{ fontSize: "1.25rem" }} />
+          <Rating
+            value={3.5}
+            readOnly
+            sx={{ fontSize: "1rem", sm: { fontSize: "1.25rem" } }}
+          />
         </div>
         <div className="mt-3 flex items-center justify-between">
-          <button className="flex items-center border-black border-2 shadow-sm px-3 py-1 rounded-2xl">
-            <ShoppingCartIcon className="mr-1" />
+          <button
+            onClick={addCart}
+            className="flex items-center border border-black shadow-sm px-2 py-1 sm:px-3 sm:py-1 rounded-md text-xs sm:text-base"
+          >
+            <AddShoppingCartOutlined className="mr-1" fontSize="small" />
             Add to Cart
           </button>
-          <button>
+          <button
+            onClick={() => (favorite ? removeFavorite() : addFavorite())}
+            className="flex items-center"
+          >
             {favoriteLoading ? (
-              <CircularProgress />
+              <CircularProgress size={20} />
+            ) : favorite ? (
+              <FavoriteRounded style={{ fontSize: "20px", color: "blue" }} />
             ) : (
-              <>
-                {favorite ? (
-                  <FavoriteRounded style={{ fontSize: "22px", color: "red" }} />
-                ) : (
-                  <FavoriteBorderIcon style={{ fontSize: "22px" }} />
-                )}
-              </>
+              <FavoriteBorderIcon style={{ fontSize: "22px" }} />
             )}
           </button>
         </div>

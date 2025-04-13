@@ -1,8 +1,13 @@
 // /* eslint-disable react/prop-types */
 
+import { useNavigate } from "react-router-dom";
+import { addToCart, getCart } from "../api";
 import Button from "../components/Button";
 import Table from "../components/Table";
 import TextInput from "../components/TextInput";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { openSnackbar } from "../redux/reducers/snackbarSlice";
 
 // import { pricing } from "../utils/data";
 
@@ -18,6 +23,39 @@ import TextInput from "../components/TextInput";
 // };
 
 const Cart = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [buttonLoad, setButtonLoad] = useState([]);
+
+  const getProducts = async () => {
+    setLoading(true);
+    const token = localStorage.getItem("krist-app-token");
+    await getCart(token).then((res) => {
+      setProducts(res.data);
+      setLoading(false);
+    });
+  };
+
+  const addCart = async (id) => {
+    const token = localStorage.getItem("krist-app-token");
+    await addToCart(token, { productId: id, quantity: 1 })
+      .then((res) => {
+        setReload(!reload);
+      })
+      .catch((err) => {
+        setReload(!reload);
+        dispatch(
+          openSnackbar({
+            message: err.message,
+            severity: "error",
+          })
+        );
+      });
+  };
+
   return (
     <div className="flex items-center flex-col overflow-y-scroll md:px-5 md:py-7 gap-7">
       <section className="w-full max-w-[1400px] py-4">
