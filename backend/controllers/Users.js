@@ -97,7 +97,7 @@ export const addToCart = async (req, res, next) => {
     const user = await User.findById(userJWT.id);
     // Look for the product in the user's cart by checking if any cart item has a matching product ID
     const existingCartItemIndex = user.cart.findIndex((item) =>
-      item.product.equals(productId)
+      item?.product?.equals(productId)
     );
 
     // If the product is already in the cart, update its quantity

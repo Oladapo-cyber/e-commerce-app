@@ -131,7 +131,7 @@ const ProductCard = ({ product }) => {
         </div>
         <div className="mt-3 flex items-center justify-between">
           <button
-            onClick={addCart}
+            onClick={() => addCart(product?.id)}
             className="flex items-center border border-black shadow-sm px-2 py-1 sm:px-3 sm:py-1 rounded-md text-xs sm:text-base"
           >
             <AddShoppingCartOutlined className="mr-1" fontSize="small" />

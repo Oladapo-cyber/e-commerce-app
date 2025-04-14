@@ -3,7 +3,8 @@ import ProductImage from "../assets/cloth-rack.jpg";
 
 export const Product = () => {
   return (
-    <div className="flex gap-4">
+    {products.map((item) => (
+      <div className="flex gap-4">
       <img
         src={ProductImage}
         className="h-20 w-20 sm:h-30 sm:w-30 rounded-lg"
@@ -14,7 +15,9 @@ export const Product = () => {
         <p>Desc</p>
         <p>Size</p>
       </div>
-    </div>
+    </div>                
+              ))}
+    
   );
 };
 
