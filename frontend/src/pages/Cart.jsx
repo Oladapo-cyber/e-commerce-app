@@ -84,7 +84,6 @@ const Cart = () => {
   useEffect(() => {
     getProducts();
   }, [reload]);
-
   const convertAddressToString = (addressObj) => {
     return `${addressObj.firstName} ${addressObj.lastName}, ${addressObj.completeAddress}, ${addressObj.phoneNumber}, ${addressObj.emailAddress}`;
   };
@@ -152,11 +151,12 @@ const Cart = () => {
           ) : (
             <div className="flex flex-col gap-7 p-3 md:flex-row">
               <div className=" flex-1">
-                <Table />
+                <Table
+                  products={products}
+                  addCart={(id) => addCart(id)}
+                  removeCart={(id, quantity) => removeCart(id, quantity)}
+                />
               </div>
-              {products.map((item) => (
-                <Table key={products} />
-              ))}
               <div className=" flex-1">
                 <div className="flex justify-between text-xl font-semibold">
                   <span className="font-bold">Subtotal:</span> $12.00
