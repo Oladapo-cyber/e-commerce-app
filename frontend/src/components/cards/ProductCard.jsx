@@ -109,11 +109,11 @@ const ProductCard = ({ product }) => {
       />
       <div className="mt-3">
         <div onClick={() => navigate(`/shop/${product._id}`)}>
-          <div className="sm:flex sm:items-center sm:justify-between flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <p className="text-base sm:text-lg font-semibold text-gray-800">
               {product?.title}
             </p>
-            <p className="text-base sm:text-lg font-bold">
+            <p className="text-base sm:text-lg font-bold ml-2 sm:ml-0 text-gray-700">
               ${product?.price?.org}
               <span className="align-text-top text-xs">.00</span>
             </p>

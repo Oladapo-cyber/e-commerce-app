@@ -262,26 +262,35 @@ export const addToFavorites = async (req, res, next) => {
   }
 };
 
-// Controller to remove a product from the user's favorites list
+// Controller to remove a specified product from the authenticated user's favorites list.
 export const removeFromFavorites = async (req, res, next) => {
+  console.log("removeFromFavorites controller invoked"); // Log when the controller is called
   try {
-    // Extract the product ID from the request body
+    // Extract the productId from the request body to identify which favorite to remove.
     const { productId } = req.body;
-    // Get the authenticated user's info from the JWT
     const userJWT = req.user;
-    // Find the user in the database using the provided JWT ID (using findOne instead of findById)
+    // Fetch the user using the ID provided in the JWT.
     const user = await User.findById(userJWT.id);
-    // Filter the favorites array to remove the product that matches the product ID
-    user.favorites = user.favorites.filter((fav) => !fav.equals(productId));
-    // Save the updated user record
+
+    console.log("User favorites before filtering:", user.favorites); // Debug: log favorites list before removal
+
+    // Filter out the product matching the provided productId.
+    // Uses .equals() to properly compare ObjectId values against the string input.
+    user.favorites = user.favorites.filter(
+      (fav) => fav && !fav.equals(productId)
+    );
+
+    // Save the updated user record with the modified favorites list.
     await user.save();
-    // Return a successful response with a confirmation message and the updated user data
-    return res
-      .status(200)
-      .json({ message: "Product removed from favorites successfully", user });
+
+    // Return a success response with a confirmation message and the updated user data.
+    return res.status(200).json({
+      message: "Product removed from favorites successfully",
+      user,
+    });
   } catch (error) {
-    // Forward any errors to the error handling middleware
-    next(error);
+    console.error("Error in removeFromFavorites:", error); // Log any error that occurs during removal
+    next(error); // Pass the error to the next middleware
   }
 };
 
