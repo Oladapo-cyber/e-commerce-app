@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Add, Remove } from "@mui/icons-material";
-import ProductImage from "../assets/cloth-rack.jpg";
 
-export const Product = ({ title, desc, size }) => {
+export const Product = ({ title, img, desc, size }) => {
   return (
     <div className="flex gap-4">
       <img
-        src={ProductImage}
+        src={img}
         className="h-20 w-20 sm:h-30 sm:w-30 rounded-lg"
         alt="product Image"
       />
@@ -24,22 +23,25 @@ const TableItem = ({ product, addCart, removeCart }) => {
     <tr className="flex justify-between items-center py-2 bg-gray-100 pr-4">
       <td className="text-left pl-4">
         <Product
-          title={product.title}
-          desc={product.desc}
-          size={product.size}
+          img={product?.img}
+          alt={product?.title}
+          className="h-20 w-20 sm:h-30 sm:w-30 rounded-lg"
+          title={product?.title}
+          desc={product?.desc}
+          size={product?.size}
         />
       </td>
       <td className="flex flex-col items-start">
         <div className="flex gap-7">
-          <span>${product.price}</span>
+          <span>${product?.price?.org}</span>
           <span>
             <div className=" flex gap-3 border items-center rounded px-2 py-0.5">
               <Remove fontSize="5px" onClick={() => removeCart(product._id)} />
-              {product.quantity}
+              {product?.quantity}
               <Add fontSize="5px" onClick={() => addCart(product._id)} />
             </div>
           </span>
-          <span>${product.price * product.quantity}</span>
+          <span>${product?.price?.org * product.quantity}</span>
         </div>
       </td>
     </tr>

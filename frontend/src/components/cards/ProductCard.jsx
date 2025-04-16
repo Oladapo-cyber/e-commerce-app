@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
   const addFavorite = async () => {
     setFavoriteLoading(true);
     const token = localStorage.getItem("krist-app-token");
-    await addToFavorite(token, { productID: product?._id })
+    await addToFavorite(token, { productId: product?._id })
       .then((res) => {
         setFavorite(true);
         setFavoriteLoading(false);
@@ -42,7 +42,7 @@ const ProductCard = ({ product }) => {
   const removeFavorite = async () => {
     setFavoriteLoading(true);
     const token = localStorage.getItem("krist-app-token");
-    await deleteFromFavorite(token, { productID: product?._id })
+    await deleteFromFavorite(token, { productId: product?._id })
       .then((res) => {
         setFavorite(false);
         setFavoriteLoading(false);
@@ -131,7 +131,7 @@ const ProductCard = ({ product }) => {
         </div>
         <div className="mt-3 flex items-center justify-between">
           <button
-            onClick={() => addCart(product?.id)}
+            onClick={() => addCart(product?._id)}
             className="flex items-center border border-black shadow-sm px-2 py-1 sm:px-3 sm:py-1 rounded-md text-xs sm:text-base"
           >
             <AddShoppingCartOutlined className="mr-1" fontSize="small" />
@@ -144,7 +144,7 @@ const ProductCard = ({ product }) => {
             {favoriteLoading ? (
               <CircularProgress size={20} />
             ) : favorite ? (
-              <FavoriteRounded style={{ fontSize: "20px", color: "blue" }} />
+              <FavoriteRounded style={{ fontSize: "20px", color: "red" }} />
             ) : (
               <FavoriteBorderIcon style={{ fontSize: "22px" }} />
             )}

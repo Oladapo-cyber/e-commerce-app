@@ -30,7 +30,8 @@ const Cart = () => {
     setLoading(true);
     const token = localStorage.getItem("krist-app-token");
     await getCart(token).then((res) => {
-      setProducts(res.data);
+      console.log("API response:", res.data);
+      setProducts(res.data.cartItems);
       setLoading(false);
     });
   };
@@ -147,7 +148,7 @@ const Cart = () => {
             Your Shopping Cart
           </h1>
           {products.length === 0 ? (
-            <>No items in your Cart</>
+            <div className="text-center font-bold">No items in your Cart</div>
           ) : (
             <div className="flex flex-col gap-7 p-3 md:flex-row">
               <div className=" flex-1">
