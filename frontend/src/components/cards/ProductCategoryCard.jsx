@@ -35,9 +35,6 @@ const ProductCategoryCard = ({ category }) => {
             ({category.ratingCount || "4"})
           </span>
         </div>
-        <button className="border-black border-2 shadow-sm px-3 py-1 mt-3 rounded-2xl">
-          Add to Cart
-        </button>
       </div>
     </div>
   );

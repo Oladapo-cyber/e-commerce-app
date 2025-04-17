@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Add, Remove } from "@mui/icons-material";
+import { Add, DeleteOutlineRounded, Remove } from "@mui/icons-material";
 
 export const Product = ({ title, img, desc, size }) => {
   return (
@@ -36,12 +36,30 @@ const TableItem = ({ product, addCart, removeCart }) => {
           <span>${product?.price?.org}</span>
           <span>
             <div className=" flex gap-3 border items-center rounded px-2 py-0.5">
-              <Remove fontSize="5px" onClick={() => removeCart(product._id)} />
+              <Remove
+                style={{
+                  cursor: "pointer",
+                }}
+                fontSize="5px"
+                onClick={() => removeCart(product._id, product?.quantity - 1)}
+              />
               {product?.quantity}
-              <Add fontSize="5px" onClick={() => addCart(product._id)} />
+              <Add
+                style={{
+                  cursor: "pointer",
+                }}
+                fontSize="5px"
+                onClick={() => addCart(product._id)}
+              />
             </div>
           </span>
-          <span>${product?.price?.org * product.quantity}</span>
+          <span>${(product.quantity * product?.price?.org).toFixed(2)}</span>
+          <DeleteOutlineRounded
+            sx={{ color: "red" }}
+            onClick={() =>
+              removeCart(product?._id, product?.quantity - 1, "full")
+            }
+          />
         </div>
       </td>
     </tr>
