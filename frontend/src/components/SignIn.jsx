@@ -5,6 +5,7 @@ import { UserSignIn } from "../api/index";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../redux/reducers/userSlice";
 import { openSnackbar } from "../redux/reducers/snackbarSlice";
+import { LoadingButton } from "@mui/lab";
 
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
@@ -37,6 +38,8 @@ const SignIn = ({ login, setOpenAuth, setLogin }) => {
               severity: "Success",
             })
           );
+          setButtonLoading(false);
+          setButtonDisabled(false);
           // Close the sign-in modal after successful login
           setOpenAuth(false);
         })
@@ -112,16 +115,28 @@ const SignIn = ({ login, setOpenAuth, setLogin }) => {
           </button>
         </div>
       </div>
-      <button
-        className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-6 rounded mt-4"
+
+      <LoadingButton
         onClick={handleSignIn}
+        loading={buttonLoading}
         disabled={buttonDisabled}
+        variant="contained"
+        sx={{
+          backgroundColor: "gray.800",
+          "&:hover": { backgroundColor: "gray.900" },
+          mt: 2,
+          px: 3,
+          py: 1,
+        }}
       >
-        {buttonLoading ? "Loading..." : "Sign In"}
-      </button>
+        Sign In
+      </LoadingButton>
       <p className="mt-2">
         Don&apos;t have an account?
-        <button className="text-blue-500 hover:text-blue-700 font-bold ml-1">
+        <button
+          className="text-blue-500 hover:text-blue-700 font-bold ml-1"
+          onClick={() => setLogin(false)}
+        >
           Sign up
         </button>
       </p>

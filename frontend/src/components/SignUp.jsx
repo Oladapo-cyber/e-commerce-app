@@ -1,12 +1,13 @@
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { UserSignUp } from "../api";
 import { openSnackbar } from "../redux/reducers/snackbarSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { loginSuccess } from "../redux/reducers/userSlice";
+import { LoadingButton } from "@mui/lab";
 
 /* eslint-disable react/prop-types */
-const SignUp = ({ login, setLogin }) => {
+const SignUp = ({ login, setLogin, setOpenAuth }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -82,7 +83,7 @@ const SignUp = ({ login, setLogin }) => {
           variant="outlined"
           className="w-full max-w-sm mt-4"
           value={name}
-          handleChange={(e) => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
         <TextField
           type="email"
@@ -90,7 +91,7 @@ const SignUp = ({ login, setLogin }) => {
           variant="outlined"
           className="w-full max-w-sm mt-4"
           value={email}
-          handleChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           type="password"
@@ -98,17 +99,24 @@ const SignUp = ({ login, setLogin }) => {
           variant="outlined"
           className="w-full max-w-sm mt-4"
           value={password}
-          handleChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <Button
+      <LoadingButton
         onClick={handleSignup}
-        isLoading={loading}
-        isDisabled={buttonDisabled}
-        className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-6 rounded mt-4"
+        loading={loading}
+        disabled={buttonDisabled}
+        variant="contained"
+        sx={{
+          backgroundColor: "gray.800",
+          "&:hover": { backgroundColor: "gray.900" },
+          mt: 2,
+          px: 3,
+          py: 1,
+        }}
       >
         Sign Up
-      </Button>
+      </LoadingButton>
       <p className="mt-2">
         Already have an account?
         <button

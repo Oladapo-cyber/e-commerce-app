@@ -35,7 +35,7 @@ const Right = ({ setOpenAuth, login, setLogin }) => (
       </>
     ) : (
       <>
-        <SignUp onClick={() => setLogin(false)} />
+        <SignUp setOpenAuth={setOpenAuth} login={login} setLogin={setLogin} />
       </>
     )}
   </div>
