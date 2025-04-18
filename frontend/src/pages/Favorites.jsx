@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import ProductCard from "../components/cards/ProductCard";
 import CardWrapper from "../components/CardWrapper";
-import { getFavorite } from "../api"; // API call to retrieve favorite items
+import { getFavorite } from "../api"; // Importing function to fetch favorite items from API
 import { CircularProgress } from "@mui/material";
 
 const Favorites = () => {
-  // List of favorite products fetched from the server
+  // State to store favorite items
   const [favorites, setFavorites] = useState([]);
-  // Indicates whether the data is currently being loaded
+  // State to manage loading state
   const [loading, setLoading] = useState(false);
   // Toggle state to trigger a refetch of favorites
   const [reload, setReload] = useState(false);
@@ -21,13 +21,18 @@ const Favorites = () => {
   const fetchFavorites = async () => {
     setLoading(true);
     try {
+      // Get token from localStorage for authentication
       const token = localStorage.getItem("krist-app-token");
+      // Call API to fetch favorites
       const res = await getFavorite(token);
+      // Update state with fetched data
       setFavorites(res.data);
-      console.log("Fetched favorites:", res.data);
+      console.log("API response:", res.data);
     } catch (error) {
-      console.error("Failed to fetch favorites:", error);
+      // Log error if fetching fails
+      console.error("Error fetching favorites", error);
     } finally {
+      // Set loading state to false after API call completes
       setLoading(false);
     }
   };
@@ -53,14 +58,15 @@ const Favorites = () => {
       </h1>
 
       {loading ? (
-        // Show spinner while waiting for API response
+        // Display a loading spinner while data is being fetched
         <div className="flex justify-center items-center">
           <CircularProgress />
         </div>
       ) : (
-        // Once loaded, display favorites or a fallback message
+        // Display favorites if available, or a message if no items present
         <CardWrapper>
           {favorites.length > 0 ? (
+            // Map through the favorites and display each item using ProductCard component
             favorites.map((product) => (
               <ProductCard
                 key={product._id}
@@ -69,8 +75,9 @@ const Favorites = () => {
               />
             ))
           ) : (
+            // Message to display when there are no favorite items
             <p className="text-center font-bold">
-              You haven&apos;t added any items to your favorites yet.
+              You haven&apos;t added any item to your favorites...
             </p>
           )}
         </CardWrapper>
