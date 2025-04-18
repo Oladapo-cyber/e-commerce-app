@@ -14,7 +14,7 @@ import {
 import { CircularProgress } from "@mui/material";
 import { AddShoppingCartOutlined, FavoriteRounded } from "@mui/icons-material";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, handleReload }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [favorite, setFavorite] = useState(false);
@@ -27,6 +27,7 @@ const ProductCard = ({ product }) => {
       .then((res) => {
         setFavorite(true);
         setFavoriteLoading(false);
+        handleReload();
       })
       .catch((err) => {
         setFavoriteLoading(false);
@@ -46,6 +47,7 @@ const ProductCard = ({ product }) => {
       .then((res) => {
         setFavorite(false);
         setFavoriteLoading(false);
+        handleReload();
       })
       .catch((err) => {
         setFavoriteLoading(false);

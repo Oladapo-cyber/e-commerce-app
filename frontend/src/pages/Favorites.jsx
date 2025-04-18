@@ -1,63 +1,76 @@
 import { useState, useEffect } from "react";
 import ProductCard from "../components/cards/ProductCard";
 import CardWrapper from "../components/CardWrapper";
-import { getFavorite } from "../api"; // Importing function to fetch favorite items from API
+import { getFavorite } from "../api"; // API call to retrieve favorite items
 import { CircularProgress } from "@mui/material";
 
 const Favorites = () => {
-  // State to store favorite items
+  // List of favorite products fetched from the server
   const [favorites, setFavorites] = useState([]);
-  // State to manage loading state
+  // Indicates whether the data is currently being loaded
   const [loading, setLoading] = useState(false);
+  // Toggle state to trigger a refetch of favorites
+  const [reload, setReload] = useState(false);
 
-  // Function to fetch favorite items from API
+  /**
+   * Fetches the user's favorite products from the API.
+   * Retrieves the token from localStorage for authentication,
+   * updates state with the response data, handles errors,
+   * and manages the loading indicator.
+   */
   const fetchFavorites = async () => {
-    setLoading(true); // Set loading state to true while fetching data
+    setLoading(true);
     try {
-      // Get token from localStorage for authentication
       const token = localStorage.getItem("krist-app-token");
-      // Call API to fetch favorites
       const res = await getFavorite(token);
-      // Update state with fetched data
       setFavorites(res.data);
-      console.log("API response:", res.data);
+      console.log("Fetched favorites:", res.data);
     } catch (error) {
-      // Log error if fetching fails
-      console.error("Error fetching favorites", error);
+      console.error("Failed to fetch favorites:", error);
     } finally {
-      // Set loading state to false after API call completes
       setLoading(false);
     }
   };
 
-  // useEffect hook to fetch favorites when component mounts
+  /**
+   * Inverts the reload flag to trigger useEffect
+   * and force a re-fetch of favorite items.
+   */
+  const handleReload = () => {
+    setReload((prev) => !prev);
+  };
+
+  // Run fetchFavorites on component mount and whenever `reload` changes
   useEffect(() => {
     fetchFavorites();
-  }, []);
+  }, [reload]);
 
   return (
     <div>
-      {/* Page title */}
+      {/* Page header */}
       <h1 className="flex justify-start m-2 items-center text-2xl font-bold mb-4">
         Favorite Items
       </h1>
+
       {loading ? (
-        // Display a loading spinner while data is being fetched
+        // Show spinner while waiting for API response
         <div className="flex justify-center items-center">
           <CircularProgress />
         </div>
       ) : (
-        // Display favorites if available, or a message if no items present
+        // Once loaded, display favorites or a fallback message
         <CardWrapper>
           {favorites.length > 0 ? (
-            // Map through the favorites and display each item using ProductCard component
             favorites.map((product) => (
-              <ProductCard key={product?._id} product={product} />
+              <ProductCard
+                key={product._id}
+                product={product}
+                handleReload={handleReload}
+              />
             ))
           ) : (
-            // Message to display when there are no favorite items
             <p className="text-center font-bold">
-              You haven&apos;t added any item to your favorites...
+              You haven&apos;t added any items to your favorites yet.
             </p>
           )}
         </CardWrapper>
