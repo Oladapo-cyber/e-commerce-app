@@ -18,7 +18,7 @@ export const Product = ({ title, img, desc, size }) => {
   );
 };
 
-const TableItem = ({ product, addCart, removeCart }) => {
+const TableItem = ({ product, quantity, addCart, removeCart }) => {
   return (
     <tr className="flex justify-between items-center py-2 bg-gray-100 pr-4">
       <td className="text-left pl-4">
@@ -41,9 +41,9 @@ const TableItem = ({ product, addCart, removeCart }) => {
                   cursor: "pointer",
                 }}
                 fontSize="5px"
-                onClick={() => removeCart(product._id, product?.quantity - 1)}
+                onClick={() => removeCart(product._id, quantity - 1)}
               />
-              {product?.quantity}
+              {quantity}
               <Add
                 style={{
                   cursor: "pointer",
@@ -53,12 +53,10 @@ const TableItem = ({ product, addCart, removeCart }) => {
               />
             </div>
           </span>
-          <span>${(product.quantity * product?.price?.org).toFixed(2)}</span>
+          <span>${(quantity * product?.price?.org).toFixed(2)}</span>
           <DeleteOutlineRounded
             sx={{ color: "red" }}
-            onClick={() =>
-              removeCart(product?._id, product?.quantity - 1, "full")
-            }
+            onClick={() => removeCart(product?._id, quantity - 1, "full")}
           />
         </div>
       </td>
@@ -86,6 +84,7 @@ const Table = ({ products, addCart, removeCart }) => {
           <TableItem
             key={item.product._id}
             product={item.product}
+            quantity={item.quantity}
             addCart={addCart}
             removeCart={removeCart}
           />
