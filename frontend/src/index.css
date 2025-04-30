@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
-@theme {
+body {
+  @apply font-sans;
+}
+
+:root {
   --bg: #f7f8fa;
   --bgLight: #ffffff;
   --primary: #1a1f36;

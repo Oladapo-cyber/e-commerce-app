@@ -27,7 +27,12 @@ const NavLinks = ({ className, onLinkClick }) => (
         to="/"
         onClick={onLinkClick}
         className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-black"
+          `px-3 py-1 rounded transition-colors duration-200
+          ${
+            isActive
+              ? "bg-blue-100 text-blue-600 font-bold"
+              : "text-gray-700 hover:bg-gray-100 hover:text-blue-500"
+          }`
         }
       >
         Home
@@ -38,7 +43,12 @@ const NavLinks = ({ className, onLinkClick }) => (
         to="/shop"
         onClick={onLinkClick}
         className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-black"
+          `px-3 py-1 rounded transition-colors duration-200
+          ${
+            isActive
+              ? "bg-blue-100 text-blue-600 font-bold"
+              : "text-gray-700 hover:bg-gray-100 hover:text-blue-500"
+          }`
         }
       >
         Shop
@@ -49,7 +59,12 @@ const NavLinks = ({ className, onLinkClick }) => (
         to="/new_arrivals"
         onClick={onLinkClick}
         className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-black"
+          `px-3 py-1 rounded transition-colors duration-200
+          ${
+            isActive
+              ? "bg-blue-100 text-blue-600 font-bold"
+              : "text-gray-700 hover:bg-gray-100 hover:text-blue-500"
+          }`
         }
       >
         New Arrivals
@@ -60,43 +75,15 @@ const NavLinks = ({ className, onLinkClick }) => (
         to="/orders"
         onClick={onLinkClick}
         className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-black"
+          `px-3 py-1 rounded transition-colors duration-200
+          ${
+            isActive
+              ? "bg-blue-100 text-blue-600 font-bold"
+              : "text-gray-700 hover:bg-gray-100 hover:text-blue-500"
+          }`
         }
       >
         Orders
-      </NavLink>
-    </li>
-    <li>
-      {/* <NavLink
-        to="/contact"
-        onClick={onLinkClick}
-        className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-black"
-        }
-      >
-        Contact
-      </NavLink> */}
-    </li>
-    <li>
-      <NavLink
-        to="/favorites"
-        onClick={onLinkClick}
-        className={({ isActive }) =>
-          isActive ? "text-gray-900 underline font-bold" : "text-black"
-        }
-      >
-        Favorites
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/cart"
-        onClick={onLinkClick}
-        className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-black"
-        }
-      >
-        Cart
       </NavLink>
     </li>
   </ul>
@@ -109,11 +96,13 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
   const handleLinkClick = () => setIsOpen(false);
 
   return (
-    <nav className="bg-white fixed w-full z-30 shadow-sm">
+    <nav className="bg-white fixed w-full z-30 shadow-md rounded-b-lg">
       <div className="flex items-center justify-between px-6 py-4">
         {/* Left - Logo */}
         <NavLink to="/">
-          <h1 className="font-[cursive] text-4xl">Dapstore</h1>
+          <h1 className="font-heading text-4xl font-bold text-black tracking-tight hover:scale-105 transition-transform duration-200">
+            Dapstore
+          </h1>
         </NavLink>
 
         {/* Mobile Icons & Burger */}
@@ -166,7 +155,7 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
               </Avatar>
               <button
                 onClick={() => dispatch(logout())}
-                className="text-sm font-semibold text-black hover:text-blue-600"
+                className="text-sm font-semibold text-black hover:text-blue-600 transition-colors duration-200"
               >
                 Logout
               </button>
@@ -201,7 +190,7 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
                 dispatch(logout());
                 setIsOpen(false);
               }}
-              className="text-sm font-semibold text-black hover:text-blue-600"
+              className="text-sm font-semibold text-black hover:text-blue-600 transition-colors duration-200"
             >
               Logout
             </button>

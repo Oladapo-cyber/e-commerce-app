@@ -89,11 +89,18 @@ const Home = () => {
         <h2 className="flex justify-center items-center text-2xl font-bold mb-4">
           Trending
         </h2>
-        <CardWrapper>
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </CardWrapper>
+        {loading ? (
+          <div className="flex justify-center items-center py-10">
+            <span className="text-lg text-gray-500">Loading...</span>
+            {/* Or use a spinner component if you have one */}
+          </div>
+        ) : (
+          <CardWrapper>
+            {products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </CardWrapper>
+        )}
       </section>
     </div>
   );

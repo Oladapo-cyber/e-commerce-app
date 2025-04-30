@@ -107,7 +107,7 @@ const ProductCard = ({ product, handleReload }) => {
       <img
         src={product?.img}
         alt={product?.name}
-        className="w-full h-32 sm:h-40 object-cover rounded-md"
+        className="w-full h-32 sm:h-40 object-cover rounded-md transition-transform duration-200 hover:scale-105"
       />
       <div className="mt-3">
         <div onClick={() => navigate(`/shop/${product._id}`)}>
@@ -117,7 +117,6 @@ const ProductCard = ({ product, handleReload }) => {
             </p>
             <p className="text-base sm:text-lg font-bold ml-2 sm:ml-0 text-gray-700">
               ${product?.price?.org}
-              <span className="align-text-top text-xs">.00</span>
             </p>
           </div>
           <p className="inline text-xs sm:text-sm text-gray-600">
@@ -134,7 +133,11 @@ const ProductCard = ({ product, handleReload }) => {
         <div className="mt-3 flex items-center justify-between">
           <button
             onClick={() => addCart(product?._id)}
-            className="flex items-center border border-black shadow-sm px-2 py-1 sm:px-3 sm:py-1 rounded-md text-xs sm:text-base"
+            className="flex items-center border border-black shadow-sm px-2 py-1 sm:px-3 sm:py-1 rounded-md text-xs sm:text-base
+    transition-all duration-200
+    hover:bg-black hover:text-white
+    hover:scale-105 hover:shadow-lg
+    active:scale-95 active:animate-pulse"
           >
             <AddShoppingCartOutlined className="mr-1" fontSize="small" />
             Add to Cart

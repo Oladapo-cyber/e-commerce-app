@@ -9,34 +9,29 @@ const ProductCategoryCard = ({ category }) => {
   };
 
   return (
-    <div
+    <button
+      type="button"
       onClick={handleClick}
-      className="flex flex-col shadow-lg h-fit p-5 cursor-pointer bg-white rounded-lg"
+      className="flex flex-col shadow-lg h-fit p-0 cursor-pointer bg-white rounded-lg overflow-hidden transition-transform hover:scale-105 focus:outline-none"
+      aria-label={`Browse ${category.name} category`}
     >
       <img
         src={category.img}
         alt={category.name}
-        className="w-full h-40 object-cover rounded-md"
+        className="w-full h-40 object-cover"
+        loading="lazy"
       />
-      <div className="mt-4">
-        <div className="flex justify-between items-center">
-          <p className="text-lg font-semibold text-gray-800">{category.name}</p>
-          <p className="text-lg font-bold">
-            ${category.price || "59"}
-            <span className="align-text-top text-xs">.00</span>
-          </p>
-        </div>
-        <p className="inline text-sm text-gray-600">
-          {category.description || "Organic cotton, fairtrade certified"}
+      <div className="flex flex-col flex-1 justify-between px-5 py-4">
+        <p className="text-lg font-heading font-semibold text-gray-800 text-center mb-1">
+          {category.name}
         </p>
-        <div className="flex items-center mt-2">
-          <span className="text-green-600">{category.rating || "★★★★☆"}</span>
-          <span className="ml-2 text-gray-600">
-            ({category.ratingCount || "4"})
-          </span>
-        </div>
+        <p className="text-sm text-gray-600 text-center">
+          {category.description ||
+            category.off ||
+            "Organic cotton, fairtrade certified"}
+        </p>
       </div>
-    </div>
+    </button>
   );
 };
 
