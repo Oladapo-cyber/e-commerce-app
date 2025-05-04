@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import ProductCard from "../components/cards/ProductCard";
 import CardWrapper from "../components/CardWrapper";
 import { getFavorite } from "../api"; // Importing function to fetch favorite items from API
-import { CircularProgress } from "@mui/material";
-
+import Skeleton from "@mui/material/Skeleton";
 const Favorites = () => {
   // State to store favorite items
   const [favorites, setFavorites] = useState([]);
@@ -60,7 +59,26 @@ const Favorites = () => {
       {loading ? (
         // Display a loading spinner while data is being fetched
         <div className="flex justify-center items-center">
-          <CircularProgress />
+          <div className="w-full justify-center items-center h-full">
+            <CardWrapper>
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col w-full h-full shadow-lg p-4 md:p-5 bg-white rounded-md md:rounded-lg"
+                >
+                  <Skeleton
+                    variant="rectangular"
+                    width="100%"
+                    height={160}
+                    className="mb-3"
+                  />
+                  <Skeleton variant="text" width="80%" height={32} />
+                  <Skeleton variant="text" width="60%" height={24} />
+                  <Skeleton variant="text" width="40%" height={24} />
+                </div>
+              ))}
+            </CardWrapper>
+          </div>
         </div>
       ) : (
         // Display favorites if available, or a message if no items present

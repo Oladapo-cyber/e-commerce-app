@@ -6,6 +6,7 @@ import clothRack from "../assets/cloth-rack.jpg";
 import stylishDenim from "../assets/stylish-denim.jpg";
 import CardWrapper from "../components/CardWrapper";
 import { category } from "../utils/data";
+import Skeleton from "@mui/material/Skeleton";
 import ProductCategoryCard from "../components/cards/ProductCategoryCard";
 import ProductCard from "../components/cards/ProductCard";
 import { useEffect, useState } from "react";
@@ -90,9 +91,25 @@ const Home = () => {
           Trending
         </h2>
         {loading ? (
-          <div className="flex justify-center items-center py-10">
-            <span className="text-lg text-gray-500">Loading...</span>
-            {/* Or use a spinner component if you have one */}
+          <div className="w-full justify-center items-center h-full">
+            <CardWrapper>
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col w-full h-full shadow-lg p-4 md:p-5 bg-white rounded-md md:rounded-lg"
+                >
+                  <Skeleton
+                    variant="rectangular"
+                    width="100%"
+                    height={160}
+                    className="mb-3"
+                  />
+                  <Skeleton variant="text" width="80%" height={32} />
+                  <Skeleton variant="text" width="60%" height={24} />
+                  <Skeleton variant="text" width="40%" height={24} />
+                </div>
+              ))}
+            </CardWrapper>
           </div>
         ) : (
           <CardWrapper>
