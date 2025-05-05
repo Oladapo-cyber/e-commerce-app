@@ -6,6 +6,8 @@ import {
   ShoppingCartOutlined,
   FavoriteBorder,
   Menu as HamburgerIcon,
+  ExitToApp,
+  Logout,
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import { logout } from "../redux/reducers/userSlice";
@@ -171,43 +173,80 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`${isOpen ? "block" : "hidden"} md:hidden px-6 pb-4`}>
-        <SearchBar className="w-full mb-4 px-3 py-2" />
-        <NavLinks className="space-y-2" onLinkClick={handleLinkClick} />
-        {currentUser ? (
-          <div className="mt-4 space-y-2">
-            <NavLink to="/favorites" onClick={handleLinkClick}>
-              <FavoriteBorder className="text-[28px]" />
-            </NavLink>
-            <NavLink to="/cart" onClick={handleLinkClick}>
-              <ShoppingCartOutlined className="text-[28px]" />
-            </NavLink>
-            <Avatar src={currentUser?.img} className="w-8 h-8">
-              {currentUser?.name?.[0]}
-            </Avatar>
-            <button
-              onClick={() => {
-                dispatch(logout());
-                setIsOpen(false);
-              }}
-              className="text-sm font-semibold text-black hover:text-blue-600 transition-colors duration-200"
-            >
-              Logout
-            </button>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex">
+          {/* Overlay */}
+          <div
+            className="absolute inset-0   opacity-70"
+            onClick={() => setIsOpen(false)}
+            aria-label="Close menu"
+          />
+          {/* Slide-in menu */}
+          <div className="relative bg-white w-4/5 max-w-xs h-full shadow-lg animate-slide-in-left flex flex-col">
+            <div className="flex items-center justify-between px-4 py-4 border-b">
+              <span className="text-xl font-bold font-heading text-blue-700">
+                Menu
+              </span>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-gray-700 text-2xl focus:outline-none"
+                aria-label="Close menu"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="flex-1 flex flex-col gap-2 mt-4 px-4">
+              <SearchBar className="w-full mb-4 px-3 py-2" />
+              <NavLinks
+                className="flex flex-col gap-2"
+                onLinkClick={handleLinkClick}
+              />
+              {currentUser ? (
+                <div className="flex flex-col gap-3 ">
+                  <NavLink
+                    to="/favorites"
+                    onClick={handleLinkClick}
+                    className="flex items-center gap-2 text-lg font-medium text-gray-800 hover:text-blue-600"
+                  >
+                    <FavoriteBorder className="text-[24px]" /> Favorites
+                  </NavLink>
+                  <NavLink
+                    to="/cart"
+                    onClick={handleLinkClick}
+                    className="flex items-center gap-2 text-lg font-medium text-gray-800 hover:text-blue-600"
+                  >
+                    <ShoppingCartOutlined className="text-[24px]" /> Cart
+                  </NavLink>
+                  <div className="flex items-center text-gray-700 bg-red-100 rounded p-1 gap-2 ">
+                    <Logout className="text-[24px]" />
+                    <button
+                      onClick={() => {
+                        dispatch(logout());
+                        setIsOpen(false);
+                      }}
+                      className="text-sm font-semibold  hover:text-blue-600 transition-colors duration-200"
+                    >
+                      Log Out
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-6">
+                  <Button
+                    text="SignIn"
+                    small
+                    onClick={() => {
+                      setOpenAuth(!openAuth);
+                      setIsOpen(false);
+                    }}
+                    className="w-full"
+                  />
+                </div>
+              )}
+            </div>
           </div>
-        ) : (
-          <div className="mt-4 space-y-2">
-            <Button
-              text="SignIn"
-              small
-              onClick={() => {
-                setOpenAuth(!openAuth);
-                setIsOpen(false);
-              }}
-            />
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 };

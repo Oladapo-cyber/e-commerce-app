@@ -37,7 +37,7 @@ const Home = () => {
           />
         </div>
 
-        <div className="overflow-hidden rounded-lg shadow-lg transform hover:scale-105 transition duration-300 h-full md:col-start-2 md:row-start-1">
+        <div className="overflow-hidden font-merriweather rounded-lg shadow-lg transform hover:scale-105 transition duration-300 h-full md:col-start-2 md:row-start-1">
           <img
             src={openShop}
             alt="Hero"

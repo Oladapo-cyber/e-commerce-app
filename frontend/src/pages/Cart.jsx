@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { openSnackbar } from "../redux/reducers/snackbarSlice";
 import { CircularProgress } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -142,7 +143,45 @@ const Cart = () => {
   return (
     <div className="flex items-center flex-col overflow-y-scroll md:px-5 md:py-7 gap-7">
       {loading ? (
-        <CircularProgress />
+        <div className="w-full justify-center items-center h-full">
+          <div className="flex flex-col gap-7 p-3 md:flex-row">
+            <div className="flex-1">
+              {/* Skeleton for Table */}
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className="flex flex-row items-center gap-4 mb-4 bg-white rounded-md shadow p-4"
+                >
+                  <Skeleton variant="rectangular" width={80} height={80} />
+                  <div className="flex-1">
+                    <Skeleton variant="text" width="60%" height={28} />
+                    <Skeleton variant="text" width="40%" height={20} />
+                    <Skeleton variant="text" width="30%" height={20} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex-1">
+              {/* Skeleton for summary and form */}
+              <Skeleton
+                variant="text"
+                width="60%"
+                height={32}
+                className="mb-4"
+              />
+              {[...Array(4)].map((_, i) => (
+                <Skeleton
+                  key={i}
+                  variant="rectangular"
+                  width="100%"
+                  height={40}
+                  className="mb-3"
+                />
+              ))}
+              <Skeleton variant="rectangular" width="100%" height={48} />
+            </div>
+          </div>
+        </div>
       ) : (
         <section className="w-full max-w-[1400px] py-4">
           <h1 className="flex justify-center items-center text-2xl font-bold mb-4">
