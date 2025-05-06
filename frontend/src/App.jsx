@@ -13,16 +13,17 @@ import ProductDetails from "./pages/ProductDetails";
 import { useSelector, useDispatch } from "react-redux";
 // import ShopListing from "./pages/ShopListing";
 import ToastMessage from "./components/ToastMessage";
+import Footer from "./components/Footer";
 
 const App = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { open, message, severity } = useSelector((state) => state.user);
   const [openAuth, setOpenAuth] = useState(false);
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       <BrowserRouter>
         <Navbar setOpenAuth={setOpenAuth} currentUser={currentUser} />
-        <div className="pt-18">
+        <div className="pt-18 flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<ShopListing />} />
@@ -37,6 +38,7 @@ const App = () => {
         {open && (
           <ToastMessage message={message} severity={severity} open={open} />
         )}
+        <Footer />
       </BrowserRouter>
     </div>
   );

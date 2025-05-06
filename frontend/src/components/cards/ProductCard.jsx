@@ -103,7 +103,7 @@ const ProductCard = ({ product, handleReload }) => {
   }, []);
 
   return (
-    <div className="flex flex-col shadow-lg p-4 md:p-5 cursor-pointer bg-white rounded-md md:rounded-lg">
+    <div className="flex flex-col shadow-lg p-4 md:p-5 cursor-pointer mb-4 bg-white rounded-md md:rounded-lg">
       <img
         src={product?.img}
         alt={product?.name}

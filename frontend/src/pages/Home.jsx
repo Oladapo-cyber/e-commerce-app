@@ -27,7 +27,7 @@ const Home = () => {
     getProducts();
   }, []);
   return (
-    <div className="bg-gradient-to-br from-gray-100 to-gray-300">
+    <div className="bg-gradient-to-br font-merriweather from-gray-100 to-gray-300">
       <section className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-[1fr_2fr_1fr] gap-6 container h-auto md:h-[90vh] mx-auto p-4">
         <div className="hidden md:block col-span-1 row-span-3 overflow-hidden rounded-lg shadow-lg transform hover:scale-105 transition duration-300 h-full">
           <img
@@ -37,7 +37,7 @@ const Home = () => {
           />
         </div>
 
-        <div className="overflow-hidden font-merriweather rounded-lg shadow-lg transform hover:scale-105 transition duration-300 h-full md:col-start-2 md:row-start-1">
+        <div className="overflow-hidden rounded-lg shadow-lg transform hover:scale-105 transition duration-300 h-full md:col-start-2 md:row-start-1">
           <img
             src={openShop}
             alt="Hero"

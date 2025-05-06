@@ -4,6 +4,10 @@ body {
   @apply font-sans;
 }
 
+@theme {
+  --font-merriweather: "Merriweather", serif;
+}
+
 :root {
   --bg: #f7f8fa;
   --bgLight: #ffffff;
