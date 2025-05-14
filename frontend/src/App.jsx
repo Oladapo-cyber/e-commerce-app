@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import ShopListing from "./pages/ShopListing";
 import ToastMessage from "./components/ToastMessage";
 import Footer from "./components/Footer";
+import Orders from "./pages/Orders";
 
 const App = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/shop/:id" element={<ProductDetails />} />
+            <Route path="/orders" element={<Orders />} />
           </Routes>
         </div>
         {openAuth && (

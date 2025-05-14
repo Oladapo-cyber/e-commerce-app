@@ -8,7 +8,6 @@ import TextInput from "../components/TextInput";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { openSnackbar } from "../redux/reducers/snackbarSlice";
-import { CircularProgress } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
 
 const Cart = () => {
@@ -17,7 +16,7 @@ const Cart = () => {
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
   const [products, setProducts] = useState([]);
-  const [buttonLoad, setButtonLoad] = useState([]);
+  const [buttonLoad, setButtonLoad] = useState(false);
 
   const [deliveryDetails, setDeliveryDetails] = useState({
     firstName: "",
@@ -78,7 +77,9 @@ const Cart = () => {
 
   const calculateSubtotal = () => {
     return products.reduce(
-      (total, item) => total + item.quantity * item?.product?.price?.org,
+      (total, item) =>
+        total +
+        (Number(item.quantity) || 0) * (Number(item?.product?.price?.org) || 0),
       0
     );
   };
@@ -108,6 +109,7 @@ const Cart = () => {
             severity: "error",
           })
         );
+        setButtonLoad(false);
         return;
       }
       const token = localStorage.getItem("krist-app-token");
@@ -126,8 +128,18 @@ const Cart = () => {
           severity: "success",
         })
       );
-      setButtonLoad(false);
 
+      // Clear cart and reset delivery details here
+      setProducts([]);
+      setDeliveryDetails({
+        firstName: "",
+        lastName: "",
+        emailAddress: "",
+        phoneNumber: "",
+        completeAddress: "",
+      });
+
+      setButtonLoad(false);
       setReload(!reload);
     } catch (error) {
       dispatch(
@@ -209,7 +221,7 @@ const Cart = () => {
                     <div className="flex gap-1.5">
                       <TextInput
                         value={deliveryDetails.firstName}
-                        handelChange={(e) =>
+                        handleChange={(e) =>
                           setDeliveryDetails({
                             ...deliveryDetails,
                             firstName: e.target.value,
@@ -219,7 +231,7 @@ const Cart = () => {
                       />
                       <TextInput
                         value={deliveryDetails.lastName}
-                        handelChange={(e) =>
+                        handleChange={(e) =>
                           setDeliveryDetails({
                             ...deliveryDetails,
                             lastName: e.target.value,
@@ -230,7 +242,7 @@ const Cart = () => {
                     </div>
                     <TextInput
                       value={deliveryDetails.emailAddress}
-                      handelChange={(e) =>
+                      handleChange={(e) =>
                         setDeliveryDetails({
                           ...deliveryDetails,
                           emailAddress: e.target.value,
@@ -240,7 +252,7 @@ const Cart = () => {
                     />
                     <TextInput
                       value={deliveryDetails.phoneNumber}
-                      handelChange={(e) =>
+                      handleChange={(e) =>
                         setDeliveryDetails({
                           ...deliveryDetails,
                           phoneNumber: e.target.value,
@@ -251,7 +263,7 @@ const Cart = () => {
                     <TextInput
                       textArea
                       rows={5}
-                      handelChange={(e) =>
+                      handleChange={(e) =>
                         setDeliveryDetails({
                           ...deliveryDetails,
                           completeAddress: e.target.value,
@@ -277,7 +289,7 @@ const Cart = () => {
                 <Button
                   isLoading={buttonLoad}
                   isDisabled={buttonLoad}
-                  onClick={placeOrder}
+                  onClick={PlaceOrder}
                   text={"Submit Order"}
                 />
               </div>

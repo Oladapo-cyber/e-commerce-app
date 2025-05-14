@@ -8,7 +8,7 @@ const TextInput = ({
   name,
   value,
   error,
-  handelChange,
+  handleChange,
   rows,
   columns,
   chipableInput,
@@ -64,7 +64,7 @@ const TextInput = ({
               placeholder={placeholder}
               name={name}
               value={value}
-              onChange={(e) => handelChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
         ) : (
@@ -77,7 +77,7 @@ const TextInput = ({
                 placeholder={placeholder}
                 name={name}
                 value={value}
-                onChange={(e) => handelChange(e)}
+                onChange={(e) => handleChange(e)}
                 rows={rows}
                 cols={columns}
               />
@@ -89,7 +89,7 @@ const TextInput = ({
                 placeholder={placeholder}
                 name={name}
                 value={value}
-                onChange={(e) => handelChange(e)}
+                onChange={(e) => handleChange(e)}
                 type={password && !showPassword ? "password" : "text"}
               />
             )}

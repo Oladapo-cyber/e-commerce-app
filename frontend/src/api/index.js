@@ -68,7 +68,7 @@ export const placeOrder = async (token, data) =>
   });
 
 // API call to get orders information.
-// Sends a GET request with an authorization header. The second argument 'data' might be unnecessary for GET.
+// Sends a GET request with an authorization header.
 export const getOrders = async (token) =>
   await API.get(`/user/order/`, {
     headers: { Authorization: `Bearer ${token}` },

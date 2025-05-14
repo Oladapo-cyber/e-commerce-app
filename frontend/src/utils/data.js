@@ -1,26 +1,32 @@
+import casualWear from "../assets/CasualWear.avif";
+import ethnicWear from "../assets/ethnicWear.jpg";
+import winterWear from "../assets/winterWear.jpg";
+import westernWear from "../assets/westernWear.jpg";
+import formalWear from "../assets/formalWear.webp";
+
 export const category = [
   {
-    img: "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=400&q=80",
+    img: casualWear,
     name: "Casual Wear",
     off: "20-40% OFF",
   },
   {
-    img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+    img: formalWear,
     name: "Formal Wear",
     off: "10-20% OFF",
   },
   {
-    img: "https://images.unsplash.com/photo-1598970434795-0c54fe7c0642?auto=format&fit=crop&w=400&q=80",
+    img: winterWear,
     name: "Winter Wear",
     off: "20-40% OFF",
   },
   {
-    img: "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=400&q=80",
+    img: westernWear,
     name: "Western Wear",
     off: "30-40% OFF",
   },
   {
-    img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=400&q=80",
+    img: ethnicWear,
     name: "Ethnic Wear",
     off: "10-40% OFF",
   },

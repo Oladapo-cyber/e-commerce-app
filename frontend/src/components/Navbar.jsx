@@ -157,7 +157,7 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
               </Avatar>
               <button
                 onClick={() => dispatch(logout())}
-                className="text-sm font-semibold text-black hover:text-blue-600 transition-colors duration-200"
+                className="text-sm font-red font-semibold text-black hover:text-blue-600 transition-colors duration-200"
               >
                 Logout
               </button>
