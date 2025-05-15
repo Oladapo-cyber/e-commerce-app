@@ -26,8 +26,11 @@ const Left = () => (
 
 const Right = ({ setOpenAuth, login, setLogin }) => (
   <div className="w-full h-full sm:flex-1 bg-white">
-    <IconButton onClick={() => setOpenAuth(false)}>
-      <Close className="border-2 h-10 w-10 rounded-2xl top-3 left-[24.5rem] absolute md:top-5 sm:left-85 lg:top-7 lg:left-[45rem] -translate-x-1/2 transform" />
+    <IconButton
+      onClick={() => setOpenAuth(false)}
+      className="absolute top-4 right-4 z-20"
+    >
+      <Close className="h-8 w-8" />
     </IconButton>
     {login ? (
       <>
