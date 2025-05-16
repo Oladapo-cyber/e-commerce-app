@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Creating an axios instance with a predefined base URL for the API endpoints
 const API = axios.create({
-  baseURL: "http://localhost:8080/api/",
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 // API call for user sign up. Sends a POST request with user data to the sign up endpoint.
