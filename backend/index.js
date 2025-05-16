@@ -13,17 +13,11 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [
-  "https://dapstore.netlify.app",
-  "http://localhost:5173", // or whatever port your local frontend runs on
-];
-
-// Middleware setup
-// Enable Cross-Origin Resource Sharing
+// Enable CORS for requests from the specified origin and allow credentials (cookies, authorization headers, etc.)
 app.use(
   cors({
-    origin: allowedOrigins,
-    credentials: true,
+    origin: "https://dapstore.netlify.app", // Allow requests only from this origin
+    credentials: true, // Allow cookies and credentials to be sent with requests
   })
 );
 app.use(express.json({ limit: "50mb" })); // Parse JSON requests with a size limit
