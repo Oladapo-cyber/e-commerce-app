@@ -113,6 +113,7 @@ const ProductDetails = () => {
       });
   };
 
+
   useEffect(() => {
     getProduct();
     checkFavorite();
@@ -170,11 +171,11 @@ const ProductDetails = () => {
               <div className="flex flex-col gap-2">
                 <div className="flex justify-center items-center gap-4">
                   <Button
-                    text="Add to Cart"
+                    text="Buy Now"
                     full
                     outlined={false}
                     isLoading={cartLoading}
-                    onClick={() => addCart}
+                    onClick={addCart}
                   />
                   <Button
                     leftIcon={
@@ -194,8 +195,6 @@ const ProductDetails = () => {
                     }
                   />
                 </div>
-
-                <Button text="Buy Now" full />
               </div>
             </div>
           </div>

@@ -6,7 +6,6 @@ import {
   ShoppingCartOutlined,
   FavoriteBorder,
   Menu as HamburgerIcon,
-  ExitToApp,
   Logout,
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
@@ -157,7 +156,7 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
               </Avatar>
               <button
                 onClick={() => dispatch(logout())}
-                className="text-sm font-red font-semibold text-black hover:text-blue-600 transition-colors duration-200"
+                className="text-md text-red-500 p-2 rounded bg-red-50 font-semibold hover:text-red-700 hover:bg-red-200 transition-colors duration-300"
               >
                 Logout
               </button>

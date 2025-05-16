@@ -13,11 +13,16 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  "https://dapstore.netlify.app",
+  "http://localhost:5173", // or whatever port your local frontend runs on
+];
+
 // Middleware setup
 // Enable Cross-Origin Resource Sharing
 app.use(
   cors({
-    origin: "https://dapstore.netlify.app",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
@@ -62,7 +67,8 @@ const connectDB = () => {
 const startServer = async () => {
   try {
     connectDB(); // Establish database connection
-    app.listen(8080, () => console.log("Server started on port 8080")); // Start the server on port 8080
+    const PORT = process.env.PORT || 8080;
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (error) {
     console.log(error); // Log any errors during server startup
   }
