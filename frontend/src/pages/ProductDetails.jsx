@@ -113,7 +113,6 @@ const ProductDetails = () => {
       });
   };
 
-
   useEffect(() => {
     getProduct();
     checkFavorite();

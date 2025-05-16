@@ -225,14 +225,39 @@ export const placeOrder = async (req, res, next) => {
 // Controller to retrieve all orders made by the user
 export const getAllOrders = async (req, res, next) => {
   try {
-    // Get the authenticated user's info from the request
     const user = req.user;
-    // Find all orders in the database that match the user's ID
-    const orders = await Orders.find({ user: user.id });
-    // Return a successful response with the list of orders
-    return res.status(200).json(orders);
+    // Populate product details
+    const orders = await Orders.find({ user: user.id })
+      .populate({
+        path: "products.product",
+        model: "Products",
+        select: "img title name",
+      })
+      .sort({ createdAt: -1 });
+
+    // Format each order for frontend
+    const formattedOrders = orders.map((order) => ({
+      _id: order._id,
+      createdAt: order.createdAt,
+      status: order.status,
+      address: order.address,
+      // Convert Decimal128 to number
+      totalAmount: order.total_amount ? Number(order.total_amount) : 0,
+      products: (order.products || []).map((item) => ({
+        product: item.product
+          ? {
+              _id: item.product._id,
+              img: item.product.img,
+              title: item.product.title,
+              name: item.product.name,
+            }
+          : null,
+        quantity: item.quantity,
+      })),
+    }));
+
+    return res.status(200).json({ orders: formattedOrders });
   } catch (error) {
-    // Forward any errors to the error handling middleware
     next(error);
   }
 };
