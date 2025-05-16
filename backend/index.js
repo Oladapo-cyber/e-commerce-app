@@ -17,7 +17,7 @@ const app = express();
 // Enable Cross-Origin Resource Sharing
 app.use(
   cors({
-    origin: "https://dapstore.netlify.app/",
+    origin: "https://dapstore.netlify.app",
     credentials: true,
   })
 );
