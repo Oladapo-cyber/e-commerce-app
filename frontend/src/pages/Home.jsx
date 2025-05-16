@@ -54,7 +54,7 @@ const Home = () => {
           </p>
           <NavLink
             to="/shop"
-            className="bg-black text-white py-3 px-6 rounded-sm w-[80%] hover:bg-gray-900 transition duration-300"
+            className="bg-black text-white py-3 px-6 rounded-sm w-[80%] hover:bg-gray-900 flex justify-center transition duration-300"
           >
             Shop Now
           </NavLink>
