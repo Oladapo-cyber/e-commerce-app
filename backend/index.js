@@ -14,7 +14,13 @@ dotenv.config();
 const app = express();
 
 // Middleware setup
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+// Enable Cross-Origin Resource Sharing
+app.use(
+  cors({
+    origin: "https://dapstore.netlify.app/",
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: "50mb" })); // Parse JSON requests with a size limit
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
 
