@@ -1,5 +1,3 @@
-// import landingPhoto from "../assets/pexels-seun-oderinde.jpg";
-// import yellowImage from "../assets/yellow-image.jpg";
 import openShop from "../assets/open-shop.jpg";
 import desertDress from "../assets/desert-dress.jpg";
 import clothRack from "../assets/cloth-rack.jpg";
@@ -11,6 +9,7 @@ import ProductCategoryCard from "../components/cards/ProductCategoryCard";
 import ProductCard from "../components/cards/ProductCard";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../api";
+import { NavLink } from "react-router-dom";
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
@@ -53,9 +52,12 @@ const Home = () => {
             We offer the best deals when it <br /> comes to modern and stylish
             dresses. <br /> check through our collection for your choice
           </p>
-          <button className="bg-black text-white py-3 px-6 rounded-sm w-[80%] hover:bg-gray-900 transition duration-300">
+          <NavLink
+            to="/shop"
+            className="bg-black text-white py-3 px-6 rounded-sm w-[80%] hover:bg-gray-900 transition duration-300"
+          >
             Shop Now
-          </button>
+          </NavLink>
         </div>
 
         <div className="overflow-hidden rounded-lg shadow-lg transform hover:scale-105 transition duration-300 h-auto md:col-start-2 md:row-start-3">
